@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="yelpApi" class="com.boredatlunch.whatsforlunch.OAuth.YelpApi2"/>
+	
+	<bean name="oAuthConfigYelp" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthConfig">
+		<constructor-arg value="FjNoLDYUaBrF_0c0fuSFKg"/>
+		<constructor-arg value="mZb7_CChSz38pLokbZZCo2W8moE"/>
+		<constructor-arg ref="yelpApi"/>
+		<constructor-arg value="zlIZUTYYfUzqiGfagJNf_7hK0LaSqLg-"/>
+		<constructor-arg value="k0jwV9fpxpoNZ89v-av3mMm-NPc"/>
+	</bean>
+	
+	<bean name="diOAuthService" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthService">
+		<property name="diOAuthConfig" ref="oAuthConfigYelp"/>
+	</bean>
+	
+	<bean name="searchEateriesService" class="com.boredatlunch.whatsforlunch.Service.SearchEateriesServiceImpl">
+		<property name="oAuthService" ref="diOAuthService"/>
+	</bean>
+	
+</beans>

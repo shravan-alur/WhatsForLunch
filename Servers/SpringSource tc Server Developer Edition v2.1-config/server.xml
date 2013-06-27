@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="${base.shutdown.port}" shutdown="SHUTDOWN">
+    <Listener className="org.apache.catalina.core.JasperListener"/>
+    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+    <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener"/>
+    <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+    <Listener className="com.springsource.tcserver.serviceability.deploy.TcContainerDeployer"/>
+    <Listener accessFile="${catalina.base}/conf/jmxremote.access" authenticate="true" bind="127.0.0.1" className="com.springsource.tcserver.serviceability.rmi.JmxSocketListener" passwordFile="${catalina.base}/conf/jmxremote.password" port="${base.jmx.port}" useSSL="false"/>
+    <GlobalNamingResources>
+        <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+    	<!-- Resource auth="Container" defaultAutoCommit="true" defaultReadOnly="false" driverClassName="" fairQueue="false" initialSize="10" jmxEnabled="true" logAbandoned="false" maxActive="20" maxIdle="10" maxWait="-1" minEvictableIdleTimeMillis="5000" minIdle="10" name="jdbc/CDXOracleDatasource" password="alur" removeAbandoned="true" removeAbandonedTimeout="60" testOnBorrow="true" testOnReturn="false" testWhileIdle="false" timeBetweenEvictionRunsMillis="5000" type="javax.sql.DataSource" url="jdbc:oracle:thin:@assetdevvip:1521:assetdev" useEquals="false" username="shravan" validationInterval="30000" validationQuery="select 1 from dual"/-->
+    </GlobalNamingResources>
+    
+    <Service name="Catalina">
+        <Executor maxThreads="300" minSpareThreads="50" name="tomcatThreadPool" namePrefix="tomcat-http--"/>
+        <Engine defaultHost="localhost" name="Catalina">
+            <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+            <Host appBase="webapps" autoDeploy="true" deployOnStartup="true" deployXML="true" name="localhost" unpackWARs="true" xmlNamespaceAware="false" xmlValidation="false"><Context docBase="WhatsForLunch" path="/WhatsForLunch" reloadable="true" source="org.eclipse.jst.jee.server:WhatsForLunch"/></Host>
+            <Valve className="com.springsource.insight.collection.tcserver.request.HttpRequestOperationCollectionValve"/>
+        </Engine>
+        <Connector acceptCount="100" connectionTimeout="20000" executor="tomcatThreadPool" maxKeepAliveRequests="15" port="${bio.http.port}" protocol="org.apache.coyote.http11.Http11Protocol" redirectPort="${bio.https.port}"/>
+    </Service>
+    
+    
+</Server>
