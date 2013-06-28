@@ -1,6 +1,6 @@
 package com.boredatlunch.whatsforlunch.OAuth;
 
-import org.scribe.builder.api.Api;
+import org.scribe.builder.api.DefaultApi10a;
 
 public class DiOAuthConfig {
 	private String apiKey;
@@ -9,7 +9,7 @@ public class DiOAuthConfig {
 	//The object ? implements the Api interface provided by scribe. 
 	//Used generics implement this. See DiOAuthService for more info. 
 	//Else, should have been an implementation of the Api interface in Scribe
-	private Class<? extends Api> api;
+	private DefaultApi10a api;
 	private String token;
 	private String tokenSecret;
 	
@@ -19,22 +19,12 @@ public class DiOAuthConfig {
 	}
 
 	//Constructor for Spring to use to create an instance for dependency injection
-	public DiOAuthConfig(String apiKey, String apiSecret, Class<? extends Api> api, String token, String tokenSecret) {
-		super();
+	public DiOAuthConfig(String apiKey, String apiSecret, DefaultApi10a api, String token, String tokenSecret) {
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
 		this.api = api;
 		this.token = token;
 		this.tokenSecret = tokenSecret;
-	}
-	
-	//Constructor for Spring to use to create an instance for dependency injection
-	public DiOAuthConfig(String apiKey, String apiSecret, String callback, Class<? extends Api> api) {
-		super();
-		this.apiKey = apiKey;
-		this.apiSecret = apiSecret;
-		this.callback = callback;
-		this.api = api;
 	}
 	
 	public String getApiKey() {
@@ -55,10 +45,12 @@ public class DiOAuthConfig {
 	public void setCallback(String callback) {
 		this.callback = callback;
 	}
-	public Class<? extends Api> getApi() {
+	
+	public DefaultApi10a getApi() {
 		return api;
 	}
-	public void setApi(Class<? extends Api> api) {
+
+	public void setApi(DefaultApi10a api) {
 		this.api = api;
 	}
 

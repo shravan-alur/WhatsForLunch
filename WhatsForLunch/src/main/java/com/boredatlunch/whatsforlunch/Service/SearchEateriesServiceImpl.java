@@ -23,18 +23,24 @@ public class SearchEateriesServiceImpl implements SearchEateriesService {
 			double longitude) {
 		
 		String latlong = latitude + "," + longitude;
+		
+		//Get an instance of the service using the consumer key and consumer secret.
 		OAuthService service = getoAuthService().buildOAuthService();
+		//Get a token to initiate the conversation with Yelp
 		Token accessToken = getoAuthService().buildOAuthAccessToken();
+		
 		//Create the request
 		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
 		request.addQuerystringParameter("term", searchTerm);
 		request.addQuerystringParameter("ll", latlong);
+		
 		//Sign the request with the OAuth Access token
 		service.signRequest(accessToken, request);
+		
 		//Send it on its way
 		Response response = request.send();
-		System.out.println("The response is: " + response.toString());
-		return response.toString();
+		System.out.println("The response is: " + response);
+		return response.getBody();
 	}
 
 	public DiOAuthService getoAuthService() {
@@ -44,4 +50,5 @@ public class SearchEateriesServiceImpl implements SearchEateriesService {
 	public void setoAuthService(DiOAuthService oAuthService) {
 		this.oAuthService = oAuthService;
 	}
+
 }

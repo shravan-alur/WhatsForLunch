@@ -5,16 +5,16 @@
 	
 	<bean name="yelpApi" class="com.boredatlunch.whatsforlunch.OAuth.YelpApi2"/>
 	
-	<bean name="oAuthConfigYelp" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthConfig">
-		<constructor-arg value="FjNoLDYUaBrF_0c0fuSFKg"/>
-		<constructor-arg value="mZb7_CChSz38pLokbZZCo2W8moE"/>
-		<constructor-arg ref="yelpApi"/>
-		<constructor-arg value="zlIZUTYYfUzqiGfagJNf_7hK0LaSqLg-"/>
-		<constructor-arg value="k0jwV9fpxpoNZ89v-av3mMm-NPc"/>
+	<bean name="diOAuthConfig" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthConfig">
+		<property name="apiKey" value="FjNoLDYUaBrF_0c0fuSFKg"/>
+		<property name="apiSecret" value="mZb7_CChSz38pLokbZZCo2W8moE"/>
+		<property name="token" value="zlIZUTYYfUzqiGfagJNf_7hK0LaSqLg-"/>
+		<property name="tokenSecret" value="k0jwV9fpxpoNZ89v-av3mMm-NPc"/>
+		<property name="api" ref="yelpApi"></property>
 	</bean>
 	
 	<bean name="diOAuthService" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthService">
-		<property name="diOAuthConfig" ref="oAuthConfigYelp"/>
+		<property name="diOAuthConfig" ref="diOAuthConfig"/>
 	</bean>
 	
 	<bean name="searchEateriesService" class="com.boredatlunch.whatsforlunch.Service.SearchEateriesServiceImpl">

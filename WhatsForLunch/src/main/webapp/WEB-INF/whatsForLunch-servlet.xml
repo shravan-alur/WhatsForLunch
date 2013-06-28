@@ -23,8 +23,8 @@
 	
 	<context:component-scan base-package="com.boredatlunch.whatsforlunch" />
 	
-	<!-- <beans:bean id="homeController" class="com.boredatlunch.whatsforlunch.controller.HomeController">
-		<beans:property name="oAuthService" ref=oAuthService/>
-	</beans:bean> -->
+	<beans:bean id="homeController" class="com.boredatlunch.whatsforlunch.Controller.HomeController">
+		<beans:property name="searchEateriesService" ref="searchEateriesService"/>
+	</beans:bean>
 
 </beans:beans>
