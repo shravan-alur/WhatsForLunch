@@ -24,7 +24,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		searchEateriesService.searchByLatLong("burritos", 30.361471, -87.164326);
+		//searchEateriesService.searchByLatLong("burritos", 30.361471, -87.164326);
 		return "home";
 	}
 

@@ -23,6 +23,7 @@ public class SearchEateriesServiceImpl implements SearchEateriesService {
 			double longitude) {
 		
 		String latlong = latitude + "," + longitude;
+		String location="Raleigh";
 		
 		//Get an instance of the service using the consumer key and consumer secret.
 		OAuthService service = getoAuthService().buildOAuthService();
@@ -32,7 +33,8 @@ public class SearchEateriesServiceImpl implements SearchEateriesService {
 		//Create the request
 		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
 		request.addQuerystringParameter("term", searchTerm);
-		request.addQuerystringParameter("ll", latlong);
+		//request.addQuerystringParameter("ll", latlong);
+		request.addQuerystringParameter("location", location);
 		
 		//Sign the request with the OAuth Access token
 		service.signRequest(accessToken, request);

@@ -14,7 +14,6 @@ public class DiOAuthService {
 	this may be an instance of Api or an instance of any extended class. 
 	We choose to extend for the purposes of dependency injection*/ 
 	public OAuthService buildOAuthService() {
-		
 		return new ServiceBuilder().provider(getDiOAuthConfig().getApi()).apiKey(getDiOAuthConfig().getApiKey()).apiSecret(getDiOAuthConfig().getApiSecret()).build();
 	}
 
