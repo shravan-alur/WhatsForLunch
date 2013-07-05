@@ -1,0 +1,82 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="results">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="call_id"/>
+        <xs:element type="xs:string" name="did_you_mean"/>
+        <xs:element type="xs:string" name="regions"/>
+        <xs:element type="xs:string" name="histograms"/>
+        <xs:element name="locations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="location">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="featured"/>
+                    <xs:element type="xs:string" name="name"/>
+                    <xs:element name="address">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="street"/>
+                          <xs:element type="xs:string" name="city"/>
+                          <xs:element type="xs:string" name="state"/>
+                          <xs:element type="xs:short" name="postal_code"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="neighborhood" nillable="true"/>
+                    <xs:element type="xs:float" name="latitude"/>
+                    <xs:element type="xs:float" name="longitude"/>
+                    <xs:element type="xs:float" name="distance"/>
+                    <xs:element type="xs:string" name="image" nillable="true"/>
+                    <xs:element type="xs:long" name="phone_number"/>
+                    <xs:element type="xs:string" name="fax_number" nillable="true"/>
+                    <xs:element type="xs:string" name="rating" nillable="true"/>
+                    <xs:element type="xs:string" name="tagline" nillable="true"/>
+                    <xs:element type="xs:string" name="profile"/>
+                    <xs:element type="xs:string" name="website"/>
+                    <xs:element type="xs:string" name="has_video"/>
+                    <xs:element type="xs:string" name="has_offers"/>
+                    <xs:element type="xs:string" name="offers" nillable="true"/>
+                    <xs:element type="xs:byte" name="user_review_count"/>
+                    <xs:element type="xs:string" name="sample_categories"/>
+                    <xs:element type="xs:string" name="impression_id"/>
+                    <xs:element type="xs:string" name="expansion"/>
+                    <xs:element name="tags">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="tag" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:short" name="id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="primary" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="public_id"/>
+                    <xs:element type="xs:byte" name="business_operation_status"/>
+                    <xs:element type="xs:string" name="scorecard" nillable="true"/>
+                    <xs:element type="xs:string" name="votes" nillable="true"/>
+                    <xs:element type="xs:string" name="awards" nillable="true"/>
+                    <xs:element type="xs:string" name="has_menu"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="id"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:byte" name="total_hits"/>
+      <xs:attribute type="xs:byte" name="rpp"/>
+      <xs:attribute type="xs:byte" name="page"/>
+      <xs:attribute type="xs:byte" name="last_hit"/>
+      <xs:attribute type="xs:byte" name="first_hit"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

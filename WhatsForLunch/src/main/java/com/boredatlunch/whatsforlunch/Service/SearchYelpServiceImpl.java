@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.boredatlunch.whatsforlunch.OAuth.DiOAuthService;
 
-public class SearchEateriesServiceImpl implements SearchEateriesService {
+public class SearchYelpServiceImpl implements SearchYelpService {
 	
 	@Autowired
 	@Qualifier("diOAuthService")

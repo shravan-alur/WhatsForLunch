@@ -10,7 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.boredatlunch.whatsforlunch.Service.SearchEateriesServiceImpl;
+import com.boredatlunch.whatsforlunch.Service.SearchCityGuideServiceImpl;
+import com.boredatlunch.whatsforlunch.Service.SearchYelpServiceImpl;
 
 /**
  * Handles requests for the application home page.
@@ -18,23 +19,36 @@ import com.boredatlunch.whatsforlunch.Service.SearchEateriesServiceImpl;
 @Controller
 public class HomeController {
 	@Autowired
-	SearchEateriesServiceImpl searchEateriesService;
+	SearchYelpServiceImpl searchYelpService;
+	
+	@Autowired
+	SearchCityGuideServiceImpl searchCityGuideService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		//searchEateriesService.searchByLatLong("burritos", 30.361471, -87.164326);
+		//searchYelpService.searchByLatLong("burritos", 30.361471, -87.164326);
+		searchCityGuideService.searchByLatLong("taco bell", 30.361471, -87.164326);
 		return "home";
 	}
 
-	public SearchEateriesServiceImpl getSearchEateriesService() {
-		return searchEateriesService;
+	public SearchYelpServiceImpl getSearchYelpService() {
+		return searchYelpService;
 	}
 
-	public void setSearchEateriesService(
-			SearchEateriesServiceImpl searchEateriesService) {
-		this.searchEateriesService = searchEateriesService;
+	public void setSearchYelpService(SearchYelpServiceImpl searchYelpService) {
+		this.searchYelpService = searchYelpService;
 	}
+
+	public SearchCityGuideServiceImpl getSearchCityGuideService() {
+		return searchCityGuideService;
+	}
+
+	public void setSearchCityGuideService(
+			SearchCityGuideServiceImpl searchCityGuideService) {
+		this.searchCityGuideService = searchCityGuideService;
+	}
+	
 	
 }

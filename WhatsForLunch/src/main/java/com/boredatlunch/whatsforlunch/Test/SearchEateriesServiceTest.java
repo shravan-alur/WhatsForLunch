@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.boredatlunch.whatsforlunch.Service.SearchEateriesServiceImpl;
+import com.boredatlunch.whatsforlunch.Service.SearchYelpServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:applicationContext-Services.xml"})
 public class SearchEateriesServiceTest {
 	
 	@Autowired
-	SearchEateriesServiceImpl searchEateriesService;
+	SearchYelpServiceImpl searchEateriesService;
 	
 	@Test
 	public void TestSearchByLocation() {
