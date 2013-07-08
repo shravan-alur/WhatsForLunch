@@ -27,5 +27,7 @@
 		<beans:property name="searchYelpService" ref="searchYelpService"/>
 		<beans:property name="searchCityGuideService" ref="searchCityGuideService"/>
 	</beans:bean>
+	
+	<beans:bean name="/home.htm" class="com.boredatlunch.whatsforlunch.Controller.HomeController"/>
 
 </beans:beans>

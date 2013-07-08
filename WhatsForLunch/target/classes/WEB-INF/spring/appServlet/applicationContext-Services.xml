@@ -17,8 +17,12 @@
 		<property name="diOAuthConfig" ref="diOAuthConfig"/>
 	</bean>
 	
-	<bean name="searchEateriesService" class="com.boredatlunch.whatsforlunch.Service.SearchEateriesServiceImpl">
+	<bean name="searchYelpService" class="com.boredatlunch.whatsforlunch.Service.SearchYelpServiceImpl">
 		<property name="oAuthService" ref="diOAuthService"/>
+	</bean>
+	
+	<bean name="searchCityGuideService" class="com.boredatlunch.whatsforlunch.Service.SearchCityGuideServiceImpl">
+		<property name="devKey" value="10000005112"></property>
 	</bean>
 	
 </beans>

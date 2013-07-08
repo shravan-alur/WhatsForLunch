@@ -141,6 +141,16 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.2-promoted-b65</version>
 		</dependency>
+        <dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-xjc</artifactId>
+			<version>2.2-promoted-b65</version>
+		</dependency>
+        <dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
             
         <!-- Misc.  -->
        <dependency>

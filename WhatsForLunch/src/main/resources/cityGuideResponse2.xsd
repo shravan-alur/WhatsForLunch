@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!-- Generated using Flame-Ware Solutions XML-2-XSD v2.0 at http://www.flame-ware.com/Products/XML-2-XSD/ -->
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="results">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="call_id" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+        <xs:element name="did_you_mean" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+        <xs:element name="regions" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+        <xs:element name="histograms" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+        <xs:element name="locations" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="location" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="featured" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                    <xs:element name="name" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                    <xs:element name="neighborhood" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                    <xs:element name="latitude" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                    <xs:element name="longitude" type="xs:string" minOccurs="0" msdata:Ordinal="5" />
+                    <xs:element name="distance" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                    <xs:element name="image" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+                    <xs:element name="phone_number" type="xs:string" minOccurs="0" msdata:Ordinal="8" />
+                    <xs:element name="fax_number" type="xs:string" minOccurs="0" msdata:Ordinal="9" />
+                    <xs:element name="rating" type="xs:string" minOccurs="0" msdata:Ordinal="10" />
+                    <xs:element name="tagline" type="xs:string" minOccurs="0" msdata:Ordinal="11" />
+                    <xs:element name="profile" type="xs:string" minOccurs="0" msdata:Ordinal="12" />
+                    <xs:element name="website" type="xs:string" minOccurs="0" msdata:Ordinal="13" />
+                    <xs:element name="has_video" type="xs:string" minOccurs="0" msdata:Ordinal="14" />
+                    <xs:element name="has_offers" type="xs:string" minOccurs="0" msdata:Ordinal="15" />
+                    <xs:element name="offers" type="xs:string" minOccurs="0" msdata:Ordinal="16" />
+                    <xs:element name="user_review_count" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
+                    <xs:element name="sample_categories" type="xs:string" minOccurs="0" msdata:Ordinal="18" />
+                    <xs:element name="impression_id" type="xs:string" minOccurs="0" msdata:Ordinal="19" />
+                    <xs:element name="expansion" type="xs:string" minOccurs="0" msdata:Ordinal="20" />
+                    <xs:element name="public_id" type="xs:string" minOccurs="0" msdata:Ordinal="21" />
+                    <xs:element name="business_operation_status" type="xs:string" minOccurs="0" msdata:Ordinal="22" />
+                    <xs:element name="scorecard" type="xs:string" minOccurs="0" msdata:Ordinal="23" />
+                    <xs:element name="votes" type="xs:string" minOccurs="0" msdata:Ordinal="24" />
+                    <xs:element name="awards" type="xs:string" minOccurs="0" msdata:Ordinal="25" />
+                    <xs:element name="has_menu" type="xs:string" minOccurs="0" msdata:Ordinal="26" />
+                    <xs:element name="address" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="street" type="xs:string" minOccurs="0" />
+                          <xs:element name="city" type="xs:string" minOccurs="0" />
+                          <xs:element name="state" type="xs:string" minOccurs="0" />
+                          <xs:element name="postal_code" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="tags" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="tag" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:simpleContent msdata:ColumnName="tag_Text" msdata:Ordinal="2">
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="id" type="xs:string" />
+                                  <xs:attribute name="primary" type="xs:string" />
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="total_hits" type="xs:string" />
+      <xs:attribute name="rpp" type="xs:string" />
+      <xs:attribute name="page" type="xs:string" />
+      <xs:attribute name="last_hit" type="xs:string" />
+      <xs:attribute name="first_hit" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="results" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
