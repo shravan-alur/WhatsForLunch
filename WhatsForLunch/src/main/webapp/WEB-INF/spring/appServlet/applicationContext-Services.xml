@@ -3,26 +3,24 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<bean name="yelpApi" class="com.boredatlunch.whatsforlunch.OAuth.YelpApi2"/>
+	<bean name="yelpApi2" class="com.boredatlunch.whatsforlunch.OAuth.YelpApi2"/>
 	
-	<bean name="diOAuthConfig" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthConfig">
+	<bean name="yelpOAuthConfig" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthConfig">
 		<property name="apiKey" value="FjNoLDYUaBrF_0c0fuSFKg"/>
 		<property name="apiSecret" value="mZb7_CChSz38pLokbZZCo2W8moE"/>
 		<property name="token" value="zlIZUTYYfUzqiGfagJNf_7hK0LaSqLg-"/>
 		<property name="tokenSecret" value="k0jwV9fpxpoNZ89v-av3mMm-NPc"/>
-		<property name="api" ref="yelpApi"></property>
+		<property name="api" ref="yelpApi2"></property>
 	</bean>
 	
-	<bean name="diOAuthService" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthService">
-		<property name="diOAuthConfig" ref="diOAuthConfig"/>
+	<bean name="yelpOAuthService" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthService">
+		<property name="diOAuthConfig" ref="yelpOAuthConfig"/>
 	</bean>
 	
-	<bean name="searchYelpService" class="com.boredatlunch.whatsforlunch.Service.SearchYelpServiceImpl">
-		<property name="oAuthService" ref="diOAuthService"/>
-	</bean>
-	
-	<bean name="searchCityGuideService" class="com.boredatlunch.whatsforlunch.Service.SearchCityGuideServiceImpl">
+	<!--This bean is a service that can perform searches using any injected service (yelp/cityGuide). 
+	It is misleadingly named SearchYelpService  -->
+	<bean name="searchRestaurantService" class="com.boredatlunch.whatsforlunch.Service.SearchRestaurantServiceImpl">
+		<property name="yelpOAuthService" ref="yelpOAuthService"/>
 		<property name="devKey" value="10000005112"></property>
 	</bean>
-	
 </beans>

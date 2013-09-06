@@ -10,44 +10,33 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.boredatlunch.whatsforlunch.Service.SearchCityGuideServiceImpl;
-import com.boredatlunch.whatsforlunch.Service.SearchYelpServiceImpl;
+import com.boredatlunch.whatsforlunch.Model.LocationSearchForm;
+import com.boredatlunch.whatsforlunch.Service.SearchRestaurantServiceImpl;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping("/")
 public class HomeController {
 	@Autowired
-	SearchYelpServiceImpl searchYelpService;
-	
-	@Autowired
-	SearchCityGuideServiceImpl searchCityGuideService;
+	SearchRestaurantServiceImpl searchRestaurantService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		//searchCityGuideService.searchByLatLong("taco bell", 30.361471, -87.164326);
+	@RequestMapping(value = {"home","/"},  method = RequestMethod.GET)
+	public String home(Locale locale, final Model model) {
+		LocationSearchForm locationSearchForm = new LocationSearchForm();
+		model.addAttribute("locationSearchForm", locationSearchForm);
 		return "home";
 	}
 
-	public SearchYelpServiceImpl getSearchYelpService() {
-		return searchYelpService;
+	public SearchRestaurantServiceImpl getSearchRestaurantService() {
+		return searchRestaurantService;
 	}
 
-	public void setSearchYelpService(SearchYelpServiceImpl searchYelpService) {
-		this.searchYelpService = searchYelpService;
+	public void setSearchRestaurantService(
+			SearchRestaurantServiceImpl searchRestaurantService) {
+		this.searchRestaurantService = searchRestaurantService;
 	}
-
-	public SearchCityGuideServiceImpl getSearchCityGuideService() {
-		return searchCityGuideService;
-	}
-
-	public void setSearchCityGuideService(
-			SearchCityGuideServiceImpl searchCityGuideService) {
-		this.searchCityGuideService = searchCityGuideService;
-	}
-	
-	
 }

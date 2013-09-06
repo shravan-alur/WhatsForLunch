@@ -17,7 +17,7 @@ public class DiOAuthService {
 		return new ServiceBuilder().provider(getDiOAuthConfig().getApi()).apiKey(getDiOAuthConfig().getApiKey()).apiSecret(getDiOAuthConfig().getApiSecret()).build();
 	}
 
-	/*We need a service and an access token. This token is created using the token and the token secret provided by yelp.*/ 
+	/*We need a service and an access token. This token is created using the token and the token secret provided by facebook/twitter/yelp etc..*/ 
 	public Token buildOAuthAccessToken() {
 		return new Token(getDiOAuthConfig().getToken(), getDiOAuthConfig().getTokenSecret());
 	}
