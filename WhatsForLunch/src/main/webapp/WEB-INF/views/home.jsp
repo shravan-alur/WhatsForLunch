@@ -7,7 +7,8 @@
 <html>
 <style>
 	body {
-	background: url("http://40daysofsnap.files.wordpress.com/2013/03/food-face.jpg");
+	/* background: url("http://40daysofsnap.files.wordpress.com/2013/03/food-face.jpg"); */
+	background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg");
 	background-size: cover;	 
 }
 </style>

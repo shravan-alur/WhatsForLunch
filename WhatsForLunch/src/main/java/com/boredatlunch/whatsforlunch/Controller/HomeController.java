@@ -28,7 +28,7 @@ public class HomeController {
 	public String home(Locale locale, final Model model) {
 		LocationSearchForm locationSearchForm = new LocationSearchForm();
 		model.addAttribute("locationSearchForm", locationSearchForm);
-		return "home";
+		return ".home";
 	}
 
 	public SearchRestaurantServiceImpl getSearchRestaurantService() {
