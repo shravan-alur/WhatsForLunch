@@ -8,7 +8,8 @@
 
 <style>
 	body {
-		background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg");
+		/* background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg"); */
+		background : url("resources/images/sfo_night.png");
 		background-size: cover;	 
 	}
 </style>
@@ -22,18 +23,28 @@
 	</head>
 
 	<div class="container">
-		<form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="navbar-form navbar-left">
+		<%-- <form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="navbar-form navbar-left"> --%>
+		<form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="form-inline">
+			<div class="jumbotron">
+				<h1>Hi there ! What's for lunch today?</h1>
+				<p>If you are undecided, let us help you decide !</p>
+			</div>
 			
-				<div class="jumbotron">
-					<h1>Hi there ! What's for lunch today?</h1>
-					<p>If you are undecided, let us help you decide !</p>
+			<form class="form-inline" role="form">	
+				<div class="form-group">
+					<label class="sr-only">Find a place to eat/drink</label>
+					<form:input path="searchTerm" name="searchTerm" id="searchTerm" type="text" placeholder="Food, bars or anything" cssClass="form-control" size="25"/>
+					<br>
 				</div>
 				
-				<form:input path="searchTerm" name="searchTerm" id="searchTerm" type="text" placeholder="Food/Bars/Anything" cssClass="form-control"/>
-				<br>
-				<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="Zip Code (Optional)" maxlength="5" cssClass="form-control"/>
-				<br>
-				<button id="findLunchLocations" type="submit" class="btn btn-default" >Find</button>
+				<div class="form-group">	
+					<label class="sr-only">Near</label>
+					<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="Zip Code" maxlength="5" cssClass="form-control"/>
+					<br>
+				</div>
+					
+				<button id="findLunchLocations" type="submit" class="btn btn-default" >Let's find lunch</button>
+			</form>	
 		</form:form>
-</div>	
+	</div>	
 </html>

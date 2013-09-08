@@ -8,7 +8,8 @@
 
 <style>
 	body {
-		background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg");
+		/* background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg"); */
+		background : url("resources/images/sfo_night.png");
 		background-size: cover;	 
 	}
 </style>
@@ -24,32 +25,33 @@
 	<div class="container">
 		
 			<div class="row">
-			
-			
-			<c:forEach var="business" items="${yelpResponse.businesses}">
 				<c:set var="columnCounter" value="1"/>
-				<div class="col-md-4">
-				<div class="thumbnail">
-				  <img src="${business.image_url}" alt="..." width="125" height="125">
-				  <div class="caption">
-						<h3 align="center">${business.name}</h3>
-						<p align="center">
-						<c:forEach var="address" items="${business.location.display_address}">
-							<c:out value="${address}"></c:out>
-						</c:forEach>
-						</p>
-				   </div>
-				  <img align="center" src="${business.rating_img_url_large}" alt="...">
-				  <br>
-				  <p align="center"><a href="#" class="btn btn-primary">Add to My Poll</a></p>
-				</div>
-			  </div>
-			  <c:set var="columnCounter" value="${columnCounter+1}"/>
-			  <c:if test="${columnCounter == '3'}">
-			  	<br>
-			  	<c:set var="columnCounter" value="1"/>
-			  </c:if>
-			  </c:forEach>
+				<c:forEach var="business" items="${yelpResponse.businesses}">
+						<div class="col-md-4">
+							<div class="thumbnail">
+							  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
+							  <img src="${business.image_url}" width="125" height="125" onError="this.onerror=null;this.src='resources/images/zombies.jpg';" />
+								  <div class="caption">
+									<p align="center">
+									<c:forEach var="address" items="${business.location.display_address}">
+										<c:out value="${address}"></c:out>
+									</c:forEach>
+									</p>
+								   </div>
+							  <img align="center" src="${business.rating_img_url_large}">
+							  <br>
+							  <p align="center"><a href="#" class="btn btn-primary">Add to My Poll</a></p>
+							</div>
+					  	</div>
+						<c:set var="columnCounter" value="${columnCounter+1}"/>
+						  
+						<c:choose>
+						  <c:when test="${columnCounter == '4'}">
+						  	<br/>
+						  	<c:set var="columnCounter" value="1"/>
+						  </c:when>
+						</c:choose>
+				</c:forEach>
 			</div>	
 	</div>	
 </html>

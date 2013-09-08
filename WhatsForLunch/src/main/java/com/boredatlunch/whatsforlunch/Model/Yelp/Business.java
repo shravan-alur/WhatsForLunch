@@ -34,7 +34,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "is_closed",
     "location",
     "menu_date_updated",
-    "menu_provider"
+    "menu_provider",
+    "deals"
 })
 public class Business {
 
@@ -78,6 +79,8 @@ public class Business {
     private int menu_date_updated;
     @JsonProperty("menu_provider")
     private String menu_provider;
+    @JsonProperty("deals")
+    private List<Deal> deals = new ArrayList<Deal>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("is_claimed")
@@ -278,6 +281,16 @@ public class Business {
     @JsonProperty("menu_provider")
     public void setMenu_provider(String menu_provider) {
         this.menu_provider = menu_provider;
+    }
+
+    @JsonProperty("deals")
+    public List<Deal> getDeals() {
+        return deals;
+    }
+
+    @JsonProperty("deals")
+    public void setDeals(List<Deal> deals) {
+        this.deals = deals;
     }
 
     @JsonAnyGetter
