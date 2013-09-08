@@ -6,4 +6,9 @@
 	<definition name=".home" template="/WEB-INF/views/home.jsp">
 		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
 	</definition>
+	
+	<definition name=".results" template="/WEB-INF/views/results.jsp">
+		<put-attribute name="content" value="/WEB-INF/views/results.jsp" />
+	</definition>
+	
 </tiles-definitions>       

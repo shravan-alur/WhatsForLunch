@@ -1,8 +1,5 @@
 package com.boredatlunch.whatsforlunch.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -10,9 +7,7 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.client.RestTemplate;
 
-import com.boredatlunch.whatsforlunch.Model.Results;
 import com.boredatlunch.whatsforlunch.OAuth.DiOAuthService;
 
 public class SearchRestaurantServiceImpl implements SearchRestaurantService {
@@ -66,17 +61,18 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
 		request.addQuerystringParameter("term", searchTerm);
 		request.addQuerystringParameter("location", location);
-		request.addQuerystringParameter("limit", "1");
+		
 		//Sign the request with the OAuth Access token
 		service.signRequest(accessToken, request);
 		
-		//Send it on its way
+		//JSON response from Yelp
 		Response response = request.send();
-		System.out.println("The response is: " + response);
+		System.out.println("The response is: " + response.getBody());
+		
 		return response.getBody();
 	}
 	
-	public Results searchCityGuideByLatLong(String searchTerm, double latitude, double longitude) {
+	/*public Result searchCityGuideByLatLong(String searchTerm, double latitude, double longitude) {
 		//URL for Apache http client 
 		//String url = "http://api.citygridmedia.com/content/places/v2/search/latlon?";
 		
@@ -93,7 +89,7 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 			params.put("publisher", getDevKey());
 			
 			//Alternatively using HTTPClient to make a GET request and dump the response to console as string.
-			/*URIBuilder uriBuilder = new URIBuilder(url);
+			URIBuilder uriBuilder = new URIBuilder(url);
 			uriBuilder.addParameter("what", searchTerm);
 			uriBuilder.addParameter("lat", String.valueOf(latitude));
 			uriBuilder.addParameter("lon", String.valueOf(longitude));
@@ -107,7 +103,7 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 			httpMethod = new GetMethod(uri.toString());
 			
 			httpClient.executeMethod(httpMethod);
-			response = httpMethod.getResponseBodyAsString();*/
+			response = httpMethod.getResponseBodyAsString();
 			
 			//Use restTemplate to get the object directly from a GET request.
 			Results result = restTemplate.getForObject(url, Results.class, params);
@@ -139,7 +135,7 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 			e.printStackTrace();
 		}
 		return null;
-	}
+	}*/
 
 	public DiOAuthService getYelpOAuthService() {
 		return yelpOAuthService;

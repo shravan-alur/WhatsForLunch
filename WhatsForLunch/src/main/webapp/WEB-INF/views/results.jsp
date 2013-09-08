@@ -22,18 +22,34 @@
 	</head>
 
 	<div class="container">
-		<form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="navbar-form navbar-left">
+		
+			<div class="row">
 			
-				<div class="jumbotron">
-					<h1>Hi there ! What's for lunch today?</h1>
-					<p>If you are undecided, let us help you decide !</p>
+			
+			<c:forEach var="business" items="${yelpResponse.businesses}">
+				<c:set var="columnCounter" value="1"/>
+				<div class="col-md-4">
+				<div class="thumbnail">
+				  <img src="${business.image_url}" alt="..." width="125" height="125">
+				  <div class="caption">
+						<h3 align="center">${business.name}</h3>
+						<p align="center">
+						<c:forEach var="address" items="${business.location.display_address}">
+							<c:out value="${address}"></c:out>
+						</c:forEach>
+						</p>
+				   </div>
+				  <img align="center" src="${business.rating_img_url_large}" alt="...">
+				  <br>
+				  <p align="center"><a href="#" class="btn btn-primary">Add to My Poll</a></p>
 				</div>
-				
-				<form:input path="searchTerm" name="searchTerm" id="searchTerm" type="text" placeholder="Food/Bars/Anything" cssClass="form-control"/>
-				<br>
-				<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="Zip Code (Optional)" maxlength="5" cssClass="form-control"/>
-				<br>
-				<button id="findLunchLocations" type="submit" class="btn btn-default" >Find</button>
-		</form:form>
-</div>	
+			  </div>
+			  <c:set var="columnCounter" value="${columnCounter+1}"/>
+			  <c:if test="${columnCounter == '3'}">
+			  	<br>
+			  	<c:set var="columnCounter" value="1"/>
+			  </c:if>
+			  </c:forEach>
+			</div>	
+	</div>	
 </html>
