@@ -39,7 +39,7 @@
 				
 				<div class="form-group">	
 					<label class="sr-only">Near</label>
-					<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="Zip Code" maxlength="5" cssClass="form-control"/>
+					<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="City or Zip code" maxlength="5" cssClass="form-control"/>
 					<br>
 				</div>
 					

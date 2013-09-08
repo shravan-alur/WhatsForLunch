@@ -48,10 +48,7 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		return response.getBody();
 	}
 	
-	public String searchYelpByCity(String searchTerm) {
-		
-		String location="Raleigh";
-		
+	public String searchYelpByLocation(String searchTerm, String location) {
 		//Get an instance of the service using the consumer key and consumer secret.
 		OAuthService service = getYelpOAuthService().buildOAuthService();
 		//Get a token to initiate the conversation with Yelp

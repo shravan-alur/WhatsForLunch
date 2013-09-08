@@ -42,7 +42,7 @@ public class HomeController {
 		YelpResponse response = null;
 		try {
 			//Get JSON from service
-			String yelpResponse = searchRestaurantService.searchYelpByCity(locationSearchForm.getSearchTerm());
+			String yelpResponse = searchRestaurantService.searchYelpByLocation(locationSearchForm.getSearchTerm(), locationSearchForm.getZipCode());
 			//Get mapped object from mapper
 			response = responseMapperUtil.mapYelpResponse(yelpResponse);
 		} catch (Exception e) {
