@@ -11,7 +11,7 @@
 		/* background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg"); */
 		background : url("resources/images/colors.jpg");
 		background-size: cover;	 
-	}
+	}	
 </style>
 
 	<head>
@@ -23,16 +23,18 @@
 	</head>
 
 	<div class="container">
-		<%-- <form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="navbar-form navbar-left"> --%>
 		<form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="form-inline">
+			
 			<div class="jumbotron">
 				<h1>Hi there ! What's for lunch today?</h1>
 				<p>If you are undecided, let us help you decide !</p>
 			</div>
 			
+			<form:errors path="*" cssClass="alert alert-info" element="div" />
+			
 			<form class="form-inline" role="form">	
 				<div class="form-group">
-					<label class="sr-only">Find a place to eat/drink</label>
+					<label class="sr-only">Find a place to eat or drink</label>
 					<form:input path="searchTerm" name="searchTerm" id="searchTerm" type="text" placeholder="Food, bars or anything" cssClass="form-control"/>
 					<br>
 				</div>
@@ -43,7 +45,7 @@
 					<br>
 				</div>
 					
-				<button id="findLunchLocations" type="submit" class="btn btn-default" >Let's find lunch</button>
+				<button id="findLunchLocations" type="submit" class="btn btn-primary" >Let's find lunch</button>
 			</form>	
 		</form:form>
 	</div>	

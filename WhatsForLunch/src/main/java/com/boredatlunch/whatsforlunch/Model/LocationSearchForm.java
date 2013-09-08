@@ -1,7 +1,13 @@
 package com.boredatlunch.whatsforlunch.Model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+
 public class LocationSearchForm {
+	@NotBlank
 	private String searchTerm;
+	
+	@NotBlank
 	private String zipCode;
 	
 	public String getSearchTerm() {

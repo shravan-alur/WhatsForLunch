@@ -2,11 +2,14 @@ package com.boredatlunch.whatsforlunch.Controller;
 
 import java.util.Locale;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,9 +41,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String submit(Locale locale, final Model model, @ModelAttribute("locationSearchForm") LocationSearchForm locationSearchForm) {
+	public String submit(Locale locale, final Model model, @ModelAttribute("locationSearchForm")@Valid LocationSearchForm locationSearchForm, BindingResult bindingResult) {
 		YelpResponse response = null;
 		try {
+			if(bindingResult.hasErrors()) {
+				return ".home";
+			}
 			//Get JSON from service
 			String yelpResponse = searchRestaurantService.searchYelpByLocation(locationSearchForm.getSearchTerm(), locationSearchForm.getZipCode());
 			//Get mapped object from mapper

@@ -29,4 +29,8 @@
 	</bean>
 	
 	<bean name="mapper" class="org.codehaus.jackson.map.ObjectMapper"/>
+	
+	<bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
 </beans>
