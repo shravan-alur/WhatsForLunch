@@ -9,7 +9,7 @@
 <style>
 	body {
 		/* background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg"); */
-		background : url("resources/images/sfo_night.png");
+		background : url("resources/images/colors.jpg");
 		background-size: cover;	 
 	}
 </style>

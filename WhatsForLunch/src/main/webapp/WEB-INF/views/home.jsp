@@ -9,7 +9,7 @@
 <style>
 	body {
 		/* background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg"); */
-		background : url("resources/images/sfo_night.png");
+		background : url("resources/images/colors.jpg");
 		background-size: cover;	 
 	}
 </style>
@@ -33,13 +33,13 @@
 			<form class="form-inline" role="form">	
 				<div class="form-group">
 					<label class="sr-only">Find a place to eat/drink</label>
-					<form:input path="searchTerm" name="searchTerm" id="searchTerm" type="text" placeholder="Food, bars or anything" cssClass="form-control" size="25"/>
+					<form:input path="searchTerm" name="searchTerm" id="searchTerm" type="text" placeholder="Food, bars or anything" cssClass="form-control"/>
 					<br>
 				</div>
 				
 				<div class="form-group">	
 					<label class="sr-only">Near</label>
-					<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="City or Zip code" maxlength="5" cssClass="form-control"/>
+					<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="City or Zip code" cssClass="form-control"/>
 					<br>
 				</div>
 					
