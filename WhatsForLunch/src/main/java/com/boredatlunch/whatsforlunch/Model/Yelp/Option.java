@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "title",
     "price",
     "purchase_url",
+    "remaining_count",
     "formatted_original_price",
     "formatted_price",
     "is_quantity_limited"
@@ -31,6 +32,8 @@ public class Option {
     private int price;
     @JsonProperty("purchase_url")
     private String purchase_url;
+    @JsonProperty("remaining_count")
+    private int remaining_count;
     @JsonProperty("formatted_original_price")
     private String formatted_original_price;
     @JsonProperty("formatted_price")
@@ -77,6 +80,16 @@ public class Option {
     @JsonProperty("purchase_url")
     public void setPurchase_url(String purchase_url) {
         this.purchase_url = purchase_url;
+    }
+
+    @JsonProperty("remaining_count")
+    public int getRemaining_count() {
+        return remaining_count;
+    }
+
+    @JsonProperty("remaining_count")
+    public void setRemaining_count(int remaining_count) {
+        this.remaining_count = remaining_count;
     }
 
     @JsonProperty("formatted_original_price")

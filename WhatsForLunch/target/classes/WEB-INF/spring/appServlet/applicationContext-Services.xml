@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	 xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 	
 	<bean name="yelpApi2" class="com.boredatlunch.whatsforlunch.OAuth.YelpApi2"/>
 	
@@ -24,6 +25,10 @@
 		<property name="devKey" value="10000005112"></property>
 	</bean>
 	
+	<bean name="emailNotificationService" class="com.boredatlunch.whatsforlunch.Service.EmailNotificationServiceImpl">
+		<property name="emailProperties" ref="emailProperties"/>
+	</bean>
+	
 	<bean name="responseMapperUtil" class="com.boredatlunch.whatsforlunch.Util.ResponseMapperUtil">
 		<property name="mapper" ref="mapper"/>
 	</bean>
@@ -33,4 +38,15 @@
 	<bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
 	</bean>
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
+        <property name="locations">
+            <list>
+                <value>classpath:email.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <util:properties id="emailProperties" location="classpath:email.properties"/>
+   
 </beans>

@@ -15,33 +15,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
-    "what_you_get",
-    "time_start",
-    "title",
     "url",
-    "additional_restrictions",
+    "unused_balances",
     "options",
-    "important_restrictions",
     "image_url",
     "id",
     "currency_code"
 })
-public class Deal {
+public class Gift_certificate {
 
-    @JsonProperty("what_you_get")
-    private String what_you_get;
-    @JsonProperty("time_start")
-    private int time_start;
-    @JsonProperty("title")
-    private String title;
     @JsonProperty("url")
     private String url;
-    @JsonProperty("additional_restrictions")
-    private String additional_restrictions;
+    @JsonProperty("unused_balances")
+    private String unused_balances;
     @JsonProperty("options")
-    private List<Option> options = new ArrayList<Option>();
-    @JsonProperty("important_restrictions")
-    private String important_restrictions;
+    private List<Option_> options = new ArrayList<Option_>();
     @JsonProperty("image_url")
     private String image_url;
     @JsonProperty("id")
@@ -49,36 +37,6 @@ public class Deal {
     @JsonProperty("currency_code")
     private String currency_code;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    @JsonProperty("what_you_get")
-    public String getWhat_you_get() {
-        return what_you_get;
-    }
-
-    @JsonProperty("what_you_get")
-    public void setWhat_you_get(String what_you_get) {
-        this.what_you_get = what_you_get;
-    }
-
-    @JsonProperty("time_start")
-    public int getTime_start() {
-        return time_start;
-    }
-
-    @JsonProperty("time_start")
-    public void setTime_start(int time_start) {
-        this.time_start = time_start;
-    }
-
-    @JsonProperty("title")
-    public String getTitle() {
-        return title;
-    }
-
-    @JsonProperty("title")
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     @JsonProperty("url")
     public String getUrl() {
@@ -90,34 +48,24 @@ public class Deal {
         this.url = url;
     }
 
-    @JsonProperty("additional_restrictions")
-    public String getAdditional_restrictions() {
-        return additional_restrictions;
+    @JsonProperty("unused_balances")
+    public String getUnused_balances() {
+        return unused_balances;
     }
 
-    @JsonProperty("additional_restrictions")
-    public void setAdditional_restrictions(String additional_restrictions) {
-        this.additional_restrictions = additional_restrictions;
+    @JsonProperty("unused_balances")
+    public void setUnused_balances(String unused_balances) {
+        this.unused_balances = unused_balances;
     }
 
     @JsonProperty("options")
-    public List<Option> getOptions() {
+    public List<Option_> getOptions() {
         return options;
     }
 
     @JsonProperty("options")
-    public void setOptions(List<Option> options) {
+    public void setOptions(List<Option_> options) {
         this.options = options;
-    }
-
-    @JsonProperty("important_restrictions")
-    public String getImportant_restrictions() {
-        return important_restrictions;
-    }
-
-    @JsonProperty("important_restrictions")
-    public void setImportant_restrictions(String important_restrictions) {
-        this.important_restrictions = important_restrictions;
     }
 
     @JsonProperty("image_url")

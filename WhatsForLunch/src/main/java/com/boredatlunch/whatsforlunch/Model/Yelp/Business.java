@@ -35,7 +35,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "location",
     "menu_date_updated",
     "menu_provider",
-    "deals"
+    "deals",
+    "gift_certificates"
 })
 public class Business {
 
@@ -81,6 +82,8 @@ public class Business {
     private String menu_provider;
     @JsonProperty("deals")
     private List<Deal> deals = new ArrayList<Deal>();
+    @JsonProperty("gift_certificates")
+    private List<Gift_certificate> gift_certificates = new ArrayList<Gift_certificate>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("is_claimed")
@@ -291,6 +294,16 @@ public class Business {
     @JsonProperty("deals")
     public void setDeals(List<Deal> deals) {
         this.deals = deals;
+    }
+
+    @JsonProperty("gift_certificates")
+    public List<Gift_certificate> getGift_certificates() {
+        return gift_certificates;
+    }
+
+    @JsonProperty("gift_certificates")
+    public void setGift_certificates(List<Gift_certificate> gift_certificates) {
+        this.gift_certificates = gift_certificates;
     }
 
     @JsonAnyGetter

@@ -45,7 +45,7 @@
 					<br>
 				</div>
 					
-				<button id="findLunchLocations" type="submit" class="btn btn-primary" >Let's find lunch</button>
+				<button id="findLunchLocations" type="submit" name="search" value="search" class="btn btn-primary" >Let's find lunch</button>
 			</form>	
 		</form:form>
 	</div>	

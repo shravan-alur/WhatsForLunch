@@ -69,6 +69,26 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		return response.getBody();
 	}
 	
+	
+	public String searchYelpByBusiness(String businessId) {
+		//Get an instance of the service using the consumer key and consumer secret.
+		OAuthService service = getYelpOAuthService().buildOAuthService();
+		//Get a token to initiate the conversation with Yelp
+		Token accessToken = getYelpOAuthService().buildOAuthAccessToken();
+		
+		//Create the request
+		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
+		request.addQuerystringParameter("id", businessId);
+		
+		//Sign the request with the OAuth Access token
+		service.signRequest(accessToken, request);
+		
+		//JSON response from Yelp
+		Response response = request.send();
+		System.out.println("The response is: " + response.getBody());
+		
+		return response.getBody();
+	}
 	/*public Result searchCityGuideByLatLong(String searchTerm, double latitude, double longitude) {
 		//URL for Apache http client 
 		//String url = "http://api.citygridmedia.com/content/places/v2/search/latlon?";

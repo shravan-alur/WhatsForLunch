@@ -9,7 +9,6 @@
 	</definition>
 	
 	<definition name=".results" template="/WEB-INF/views/results.jsp">
-		<put-attribute name="content" value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/results.jsp" />
 	</definition>
 	

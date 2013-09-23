@@ -4,6 +4,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false" %>
 
+
+
 <html lang="us">
 
 <style>
@@ -20,38 +22,64 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/jquery-ui.min.js"></script>
-	</head>
-
-	<div class="container">
 		
-			<div class="row">
-				<c:set var="columnCounter" value="1"/>
-				<c:forEach var="business" items="${yelpResponse.businesses}">
-						<div class="col-md-4">
-							<div class="thumbnail">
-							  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
-							  <img src="${business.image_url}" width="125" height="125" onError="this.onerror=null;this.src='resources/images/zombies.jpg';" />
-								  <div class="caption">
-									<p align="center">
-									<c:forEach var="address" items="${business.location.display_address}">
-										<c:out value="${address}"></c:out>
-									</c:forEach>
-									</p>
-								   </div>
-							  <img align="center" src="${business.rating_img_url_large}">
-							  <br>
-							  <p align="center"><a href="#" class="btn btn-primary">Add to My Poll</a></p>
-							</div>
-					  	</div>
-						<c:set var="columnCounter" value="${columnCounter+1}"/>
-						  
-						<c:choose>
-						  <c:when test="${columnCounter == '4'}">
-						  	<br/>
-						  	<c:set var="columnCounter" value="1"/>
-						  </c:when>
-						</c:choose>
-				</c:forEach>
-			</div>	
-	</div>	
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('button').on('click', function() {
+					
+					var data = this.id;
+					
+					$.ajax({
+						type: "POST",
+						url: "addToPoll",
+						data: {"id" : data},
+						success : function(response) {
+							$('#info').html(response);
+						}
+					});
+				});
+				
+			});//end document ready
+		</script>
+		
+	</head>
+	
+	<body>
+		<div class="container">
+			<div id="info" class="alert alert-success"></div>
+				<div class="row">
+					<c:set var="columnCounter" value="1"/>
+					<c:forEach var="business" items="${yelpResponse.businesses}">
+							<%-- <form:form modelAttribute="business" commandName="business" method="POST"> --%>
+								<div id="resultCard" class="col-md-4" >
+									<div class="thumbnail">
+									  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
+									  <img src="${business.image_url}" width="125" height="125" onError="this.onerror=null;this.src='resources/images/zombies.jpg';" />
+										  <div class="caption">
+											<p align="center">
+											<c:forEach var="address" items="${business.location.display_address}">
+												<c:out value="${address}"></c:out>
+											</c:forEach>
+											</p>
+										   </div>
+									  <img align="center" src="${business.rating_img_url_large}">
+									  <br>
+									  <p align="center"><button id="${business.id} type="button" class="btn btn-primary" name="addToPoll" value="addToPoll">Add to poll</button></p>
+									</div>
+							  	</div>
+						  	<%-- </form:form> --%>
+							<c:set var="columnCounter" value="${columnCounter+1}"/>
+							  
+							<c:choose>
+							  <c:when test="${columnCounter == '4'}">
+							  	<br/>
+							  	<c:set var="columnCounter" value="1"/>
+							  </c:when>
+							</c:choose>
+					</c:forEach>
+				</div>	
+			
+		</div>
+	</body>	
 </html>
