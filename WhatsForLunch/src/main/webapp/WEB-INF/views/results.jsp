@@ -10,7 +10,6 @@
 
 <style>
 	body {
-		/* background: url("http://androidroots.com/wp-content/uploads/2012/09/jelly_bean_6.jpg"); */
 		background : url("resources/images/colors.jpg");
 		background-size: cover;	 
 	}
@@ -19,43 +18,72 @@
 	<head>
 		<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
 		<link rel="stylesheet" href="<c:url value="/resources/css/app.css"/>">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/jquery-ui.min.js"></script>
-		
+		<script type="text/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
 		<script type="text/javascript">
-			$(document).ready(function() {
+			function equalHeight(group) {
+				tallest = 0;
+				group.each(function() {
+					thisHeight = $(this).height();
+					if(thisHeight > tallest) {
+						tallest = thisHeight;
+					}
+				});
 				
-				$('button').on('click', function() {
-					
-					var data = this.id;
-					
+				group.each(function() {
+					$(this).height(tallest);
+				});
+			}
+		
+			$(document).ready(function() {
+					equalHeight($(".thumbnail"));
+				
+					$('button').on('click', function() {
+					var business = document.getElementById('businessName').value;
 					$.ajax({
 						type: "POST",
 						url: "addToPoll",
-						data: {"id" : data},
+						data: {"id" : business},
 						success : function(response) {
-							$('#info').html(response);
+							if(response == "FALSE") {
+								bootbox.alert("Oops, something went wrong! Please try again later.", function() {
+					                console.log("Could not add to poll");
+					            });
+							}
+							else {
+								$('#pass').html('Added your selection to the poll.');
+							}	
 						}
 					});
 				});
 				
 			});//end document ready
 		</script>
-		
 	</head>
 	
 	<body>
+		<!-- <div>
+			<ul class="nav nav-pills pull-right">
+		      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+		      <li><a href="#"><span class="glyphicon glyphicon-list"></span> Poll Dashboard</a></li>
+		      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Contact</a></li>
+	    	</ul>
+	    </div> -->	
+    	
+    	<br>
+    	
 		<div class="container">
-			<div id="info" class="alert alert-success"></div>
+			<div id="pass" class="alert alert-success" hidden="true"></div>
 				<div class="row">
 					<c:set var="columnCounter" value="1"/>
 					<c:forEach var="business" items="${yelpResponse.businesses}">
-							<%-- <form:form modelAttribute="business" commandName="business" method="POST"> --%>
-								<div id="resultCard" class="col-md-4" >
+							<div id="resultCard" class="col-md-4" >
 									<div class="thumbnail">
 									  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
-									  <img src="${business.image_url}" width="125" height="125" onError="this.onerror=null;this.src='resources/images/zombies.jpg';" />
+									  <input id="businessName" value="${business.id}" type="hidden">
+									  <img src="${business.image_url}" width="125" height="125" onError="this.onerror=null;this.src='http://placehold.it/125x125&text=WFL';" />
 										  <div class="caption">
 											<p align="center">
 											<c:forEach var="address" items="${business.location.display_address}">
@@ -65,12 +93,10 @@
 										   </div>
 									  <img align="center" src="${business.rating_img_url_large}">
 									  <br>
-									  <p align="center"><button id="${business.id} type="button" class="btn btn-primary" name="addToPoll" value="addToPoll">Add to poll</button></p>
+									  <p align="center"><button id="${business.id}" type="button" class="btn btn-primary" name="addToPoll" value="addToPoll"><span class="glyphicon glyphicon-ok-circle"></span> Add to poll</button></p>
 									</div>
 							  	</div>
-						  	<%-- </form:form> --%>
-							<c:set var="columnCounter" value="${columnCounter+1}"/>
-							  
+						  	<c:set var="columnCounter" value="${columnCounter+1}"/>
 							<c:choose>
 							  <c:when test="${columnCounter == '4'}">
 							  	<br/>
@@ -79,7 +105,6 @@
 							</c:choose>
 					</c:forEach>
 				</div>	
-			
 		</div>
 	</body>	
 </html>

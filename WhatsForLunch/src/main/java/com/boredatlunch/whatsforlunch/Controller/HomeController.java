@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,20 +76,15 @@ public class HomeController {
 	
 	@RequestMapping(value="/addToPoll", method=RequestMethod.POST)
 	public @ResponseBody String addToPoll(Locale locale, final Model model, @RequestParam("id") String id) {
-		String returnText = null;
+		String returnVal = "FALSE";
 		int size = selectedPollList.size();
-		System.out.println("List size before add is " + size);
 		selectedPollList.add(id);
 		int newSize = selectedPollList.size();
 		System.out.println("Adding " + id + " to the poll");
-		System.out.println("List size after add is " + newSize);
 		if(newSize == size + 1) {
-			returnText = "added";
+			returnVal = "TRUE";
 		}
-		else {
-			returnText = "not added";
-		}
-		return returnText;
+		return returnVal;
 	}
 	
 	public SearchRestaurantServiceImpl getSearchRestaurantService() {
