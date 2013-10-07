@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 public class EmailNotificationServiceImpl {
 	private Properties emailProperties;
 	
-	public void sendPollCreatedNotification(String recipients) {
+	public void sendPollCreatedNotification(String recipients) throws Exception{
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", getEmailProperties().getProperty("mail.smtp.host"));
 		prop.put("mail.smtp.socketFactory.port", getEmailProperties().getProperty("mail.smtp.socketFactory.port"));
@@ -26,18 +26,12 @@ public class EmailNotificationServiceImpl {
 			protected PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication("whatsforlunch.noreply@gmail.com","cann0tStarve07"); }
 		});
-		
-		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
 			message.setSubject("Whats For Lunch?");
-			message.setText("This is a test email from Whats For Lunch. Red pill or blue pill?");
+			message.setText("Red pill or Blue pill?");
 			Transport.send(message);
-		}
-		catch(Exception e) {
-			System.out.println("Unable to send an email" + e.getMessage());
-		}
 	}
 
 	public Properties getEmailProperties() {

@@ -3,15 +3,14 @@ package com.boredatlunch.whatsforlunch.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +82,25 @@ public class HomeController {
 		if(newSize == size + 1) {
 			returnVal = "TRUE";
 		}
+		return returnVal;
+	}
+	
+	@RequestMapping(value="/sendNotification", method=RequestMethod.POST) 
+	public @ResponseBody String sendPollToFriends(Locale locale, final Model model, @RequestParam("emails") String emails) {
+		String returnVal = "FALSE";
+		System.out.println("Entered email IDs are: " + emails);
+		//TODO: Validate if all entered emails are comma separated and also check for valid email addresses (@, .com/.domain)
+		try {
+			String[] emailAddressArray = StringUtils.split(emails, ",");
+			for(String email : emailAddressArray) {
+				emailNotificationService.sendPollCreatedNotification(StringUtils.trimAllWhitespace(email));
+			}
+			returnVal = "TRUE";
+		}
+		catch(Exception e) {
+			logger.error("Email not sent due to " + e.getMessage());
+		}
+		
 		return returnVal;
 	}
 	

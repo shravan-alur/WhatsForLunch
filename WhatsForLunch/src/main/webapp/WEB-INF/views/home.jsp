@@ -25,11 +25,9 @@
 	<body>
 		<ul class="nav nav-pills pull-right">
 	      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-	      <li><a href="#"><span class="glyphicon glyphicon-list"></span> Poll Dashboard</a></li>
+	      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Poll Dashboard</a></li>
 	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Contact</a></li>
     	</ul>
-		
-		<!-- <h3><span class="glyphicon glyphicon-heart" style="color:#5cb85c"></span> <b>What's For Lunch?</b></h3> -->
 		
 		<div class="container">
 			<form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="form-inline">
