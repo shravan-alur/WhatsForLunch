@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
+    "is_popular",
     "what_you_get",
     "time_start",
     "title",
@@ -28,6 +29,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Deal {
 
+    @JsonProperty("is_popular")
+    private boolean is_popular;
     @JsonProperty("what_you_get")
     private String what_you_get;
     @JsonProperty("time_start")
@@ -49,6 +52,16 @@ public class Deal {
     @JsonProperty("currency_code")
     private String currency_code;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("is_popular")
+    public boolean isIs_popular() {
+        return is_popular;
+    }
+
+    @JsonProperty("is_popular")
+    public void setIs_popular(boolean is_popular) {
+        this.is_popular = is_popular;
+    }
 
     @JsonProperty("what_you_get")
     public String getWhat_you_get() {

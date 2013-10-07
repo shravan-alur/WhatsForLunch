@@ -22,30 +22,33 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/equalize.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/notify.min.js"/>"></script>
+		<%-- <script type="text/javascript" src="<c:url value="/resources/js/jquery.equalheights.js"/>"></script> --%>
 		<script type="text/javascript">
-			function equalHeight(group) {
-				tallest = 0;
-				group.each(function() {
-					thisHeight = $(this).height();
-					if(thisHeight > tallest) {
-						tallest = thisHeight;
-					}
-				});
-				
-				group.each(function() {
-					$(this).height(tallest);
-				});
-			}
+			
+		function equalHeight(group) {    
+		    tallest = 0;    
+		    group.each(function() {       
+		        thisHeight = $(this).height();       
+		        if(thisHeight > tallest) {          
+		            tallest = thisHeight;       
+		        }    
+		    });    
+		    group.each(function() { $(this).height(tallest); });
+		} 
 		
-			$(document).ready(function() {
-					equalHeight($(".thumbnail"));
-				
+		$(document).ready(function() {
+					equalHeight($(".thumbnail")); 
+			
 					$('button').on('click', function() {
-					var business = document.getElementById('businessName').value;
+					var business_id = $(this).attr('id');
+					var business_name = $(this).siblings('input').val();
+					//alert('Clicked ' + business_name);
 					$.ajax({
 						type: "POST",
 						url: "addToPoll",
-						data: {"id" : business},
+						data: {"id" : business_id},
 						success : function(response) {
 							if(response == "FALSE") {
 								bootbox.alert("Oops, something went wrong! Please try again later.", function() {
@@ -53,58 +56,44 @@
 					            });
 							}
 							else {
-								$('#pass').html('Added your selection to the poll.');
+								$.notify(business_name + " added to your poll !", "success");
 							}	
 						}
 					});
-				});
-				
+				}); 
 			});//end document ready
 		</script>
 	</head>
 	
 	<body>
-		<!-- <div>
-			<ul class="nav nav-pills pull-right">
-		      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		      <li><a href="#"><span class="glyphicon glyphicon-list"></span> Poll Dashboard</a></li>
-		      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Contact</a></li>
-	    	</ul>
-	    </div> -->	
-    	
+		
     	<br>
     	
-		<div class="container">
-			<div id="pass" class="alert alert-success" hidden="true"></div>
-				<div class="row">
-					<c:set var="columnCounter" value="1"/>
+		<div class="container" id="results">
+			<div class="row" id="row">
 					<c:forEach var="business" items="${yelpResponse.businesses}">
-							<div id="resultCard" class="col-md-4" >
-									<div class="thumbnail">
-									  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
-									  <input id="businessName" value="${business.id}" type="hidden">
-									  <img src="${business.image_url}" width="125" height="125" onError="this.onerror=null;this.src='http://placehold.it/125x125&text=WFL';" />
-										  <div class="caption">
-											<p align="center">
-											<c:forEach var="address" items="${business.location.display_address}">
-												<c:out value="${address}"></c:out>
-											</c:forEach>
-											</p>
-										   </div>
-									  <img align="center" src="${business.rating_img_url_large}">
-									  <br>
-									  <p align="center"><button id="${business.id}" type="button" class="btn btn-primary" name="addToPoll" value="addToPoll"><span class="glyphicon glyphicon-ok-circle"></span> Add to poll</button></p>
-									</div>
-							  	</div>
-						  	<c:set var="columnCounter" value="${columnCounter+1}"/>
-							<c:choose>
-							  <c:when test="${columnCounter == '4'}">
-							  	<br/>
-							  	<c:set var="columnCounter" value="1"/>
-							  </c:when>
-							</c:choose>
+							<div id="resultCard" class="col-sm-6 col-md-3">
+								<div class="thumbnail">
+								  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
+								  <img src="${business.image_url}" width="125" height="125" class="img-responsive" onError="this.onerror=null;this.src='http://placehold.it/125x125&text=WFL';" />
+									  <div class="caption">
+										<p align="center">
+										<c:forEach var="address" items="${business.location.display_address}">
+											<c:out value="${address}"></c:out>
+										</c:forEach>
+										</p>
+									 </div>
+								  <img align="center" src="${business.rating_img_url_large}"/>
+								  <br>
+								  <p align="center">
+								  	<input id="businessName" value="${business.name}" hidden="true"/>
+								  	<button id="${business.id}" type="button" class="btn btn-primary" name="addToPoll" value="addToPoll">
+								  	<span class="glyphicon glyphicon-ok-circle"></span> Add to poll</button>
+								  </p>
+								</div>
+							 </div>
 					</c:forEach>
-				</div>	
+			</div>	
 		</div>
 	</body>	
 </html>
