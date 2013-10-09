@@ -29,7 +29,7 @@ public class EmailNotificationServiceImpl {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-			message.setSubject("Whats For Lunch?");
+			message.setSubject("Whats For Lunch? Test Message");
 			message.setText("Red pill or Blue pill?");
 			Transport.send(message);
 	}

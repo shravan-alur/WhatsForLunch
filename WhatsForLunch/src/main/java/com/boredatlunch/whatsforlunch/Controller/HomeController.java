@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +47,16 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, final Model model, HttpSession session) {
 		LocationSearchForm locationSearchForm = new LocationSearchForm();
+		List<String> radiusList = new ArrayList<String>();
+		radiusList.add("5 Miles");
+		radiusList.add("10 Miles");
+		radiusList.add("20 Miles");
+		
 		model.addAttribute("locationSearchForm", locationSearchForm);
+		model.addAttribute("radiusList", radiusList);
 		session.setAttribute("locationSearchForm", locationSearchForm);
 		session.setAttribute("yelpResponse", new YelpResponse());
+		session.setAttribute("radiusList", radiusList);
 		return ".home";
 	}
 	
@@ -58,13 +68,11 @@ public class HomeController {
 				return ".home";
 			}
 			//Get JSON from service
-			String yelpResponse = searchRestaurantService.searchYelpByLocation(locationSearchForm.getSearchTerm(), locationSearchForm.getZipCode());
+			String yelpResponse = searchRestaurantService.searchYelpByLocation(locationSearchForm.getSearchTerm(), locationSearchForm.getZipCode(), locationSearchForm.getRadius());
 			
 			//Get mapped object from mapper
 			response = responseMapperUtil.mapYelpResponse(yelpResponse);
 			
-			//Testing emails
-			//emailNotificationService.sendPollCreatedNotification("shravan.alur@gmail.com");
 		} catch (Exception e) {
 			logger.error("Something went wrong when trying to retrieve search results :" + e.getMessage());
 		}
@@ -90,10 +98,11 @@ public class HomeController {
 		String returnVal = "FALSE";
 		System.out.println("Entered email IDs are: " + emails);
 		//TODO: Validate if all entered emails are comma separated and also check for valid email addresses (@, .com/.domain)
+		
 		try {
-			String[] emailAddressArray = StringUtils.split(emails, ",");
-			for(String email : emailAddressArray) {
-				emailNotificationService.sendPollCreatedNotification(StringUtils.trimAllWhitespace(email));
+				String[] emailAddressArray = StringUtils.split(emails, ",");
+				for(String email : emailAddressArray) {
+					emailNotificationService.sendPollCreatedNotification(StringUtils.trim(email));
 			}
 			returnVal = "TRUE";
 		}
@@ -112,4 +121,9 @@ public class HomeController {
 			SearchRestaurantServiceImpl searchRestaurantService) {
 		this.searchRestaurantService = searchRestaurantService;
 	}
+
+	public List<String> getSelectedPollList() {
+		return selectedPollList;
+	}
+	
 }

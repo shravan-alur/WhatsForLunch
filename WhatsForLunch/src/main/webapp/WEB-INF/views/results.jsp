@@ -24,7 +24,7 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/equalize.min.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/notify.min.js"/>"></script>
-		<%-- <script type="text/javascript" src="<c:url value="/resources/js/jquery.equalheights.js"/>"></script> --%>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery.sticky-kit.min.js"/>"></script>
 		<script type="text/javascript">
 			
 		function equalHeight(group) {    
@@ -39,6 +39,8 @@
 		} 
 		
 		$(document).ready(function() {
+			$.notify.defaults({ className: "success" });
+			
 			equalHeight($(".thumbnail"));
 			
 			$('#notifyFriends').on('click', function(event){
@@ -57,7 +59,7 @@
 					    			bootbox.alert("Something went wrong while sending emails. Please try again.");
 					    		}
 					    		else {
-					    			$.notify("Your emails were sent, now lets wait for the results !", "success");
+					    			$.notify("Your emails were sent, now lets wait for the results !", {globalPosition : "bottom left"});
 					    		}
 					    	}
 					    });
@@ -79,7 +81,7 @@
 			            });
 					}
 					else {
-						$.notify(business_name + " added to your poll !", "success");
+						$.notify(business_name + " added to your poll !", {globalPosition : "bottom left"});
 					}	
 				}
 			});
@@ -89,17 +91,15 @@
 	</head>
 	
 	<body>
-		<div class="well">
-			<h4 align="left">Invite friends via email to vote when are done picking your options. Open the flood gates. 
+		<div id="notificationMenu" class="well well-sm" data-spy="affix" data-offset-top="100">
+			<h4 align="center">When you are done picking options, invite friends via email to vote and pick a winner. Open the flood gates any time.
 				<button id="notifyFriends" name="notifyFriends" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-envelope"></span> Let's ask my friends</button>
 			</h4>
 		</div>
-		
-    	<br>
-    	
+			
 		<div class="container" id="results">
 			<div class="row" id="row">
-					<c:forEach var="business" items="${yelpResponse.businesses}">
+    				<c:forEach var="business" items="${yelpResponse.businesses}">
 							<div id="resultCard" class="col-sm-6 col-md-3">
 								<div class="thumbnail">
 								  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>

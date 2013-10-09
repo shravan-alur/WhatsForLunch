@@ -10,6 +10,9 @@ public class LocationSearchForm {
 	@NotBlank
 	private String zipCode;
 	
+	@NotBlank
+	private String radius;
+	
 	public String getSearchTerm() {
 		return searchTerm;
 	}
@@ -21,5 +24,11 @@ public class LocationSearchForm {
 	}
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
-	}	
+	}
+	public String getRadius() {
+		return radius;
+	}
+	public void setRadius(String radius) {
+		this.radius = radius;
+	}
 }

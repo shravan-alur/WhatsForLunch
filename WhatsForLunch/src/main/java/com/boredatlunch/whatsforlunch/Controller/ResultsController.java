@@ -35,7 +35,7 @@ public class ResultsController {
 				return ".home";
 			}
 			//Get JSON from service
-			String yelpResponse = searchRestaurantService.searchYelpByLocation(locationSearchForm.getSearchTerm(), locationSearchForm.getZipCode());
+			String yelpResponse = searchRestaurantService.searchYelpByLocation(locationSearchForm.getSearchTerm(), locationSearchForm.getZipCode(), locationSearchForm.getRadius());
 			
 			//Get mapped object from mapper
 			response = responseMapperUtil.mapYelpResponse(yelpResponse);

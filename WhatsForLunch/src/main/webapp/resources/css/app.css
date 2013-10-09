@@ -1,3 +1,4 @@
-#jumbotron {
-	background-color : transparent !important;
+#notificationMenu {
+	width : 100%;
+	z-index : 1;
 }

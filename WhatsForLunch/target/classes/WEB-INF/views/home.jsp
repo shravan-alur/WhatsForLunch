@@ -47,8 +47,16 @@
 					</div>
 					
 					<div class="form-group">	
-						<label class="sr-only">Near</label>
+						<label class="sr-only">Zipcode/City Name</label>
 						<form:input path="zipCode" name="zipCode" id="zipCode" type="text" placeholder="City or Zip code" cssClass="form-control"/>
+						<br>
+					</div>
+					
+					<div class="form-group">	
+						<label class="sr-only">Within</label>
+							<form:select path="radius" name="radius" id="radius" cssClass="dropdown">
+								<form:options items="${radiusList}"/>
+							</form:select>
 						<br>
 					</div>
 						

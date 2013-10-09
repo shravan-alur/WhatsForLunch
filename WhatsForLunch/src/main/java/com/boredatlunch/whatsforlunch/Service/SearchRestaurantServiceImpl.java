@@ -48,7 +48,7 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		return response.getBody();
 	}
 	
-	public String searchYelpByLocation(String searchTerm, String location) {
+	public String searchYelpByLocation(String searchTerm, String location, String radius) {
 		//Get an instance of the service using the consumer key and consumer secret.
 		OAuthService service = getYelpOAuthService().buildOAuthService();
 		//Get a token to initiate the conversation with Yelp
@@ -58,6 +58,8 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
 		request.addQuerystringParameter("term", searchTerm);
 		request.addQuerystringParameter("location", location);
+		request.addQuerystringParameter("sort", "2");
+		request.addQuerystringParameter("radius_filter", radiusConverter(radius));
 		
 		//Sign the request with the OAuth Access token
 		service.signRequest(accessToken, request);
@@ -153,7 +155,19 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		}
 		return null;
 	}*/
-
+	
+	private String radiusConverter(String radiusInMiles) {
+		if(radiusInMiles.equals("5 Miles")) {
+			return Double.toString(5*1609.34);
+		}
+		else if(radiusInMiles.equals("10 Miles")){
+			return Double.toString(10*1609.34);
+		}
+		else {
+			return Double.toString(20*1609.34);
+		}
+	}
+	
 	public DiOAuthService getYelpOAuthService() {
 		return yelpOAuthService;
 	}
