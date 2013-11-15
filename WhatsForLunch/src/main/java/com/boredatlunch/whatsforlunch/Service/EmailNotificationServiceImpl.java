@@ -1,5 +1,7 @@
 package com.boredatlunch.whatsforlunch.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -10,11 +12,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.boredatlunch.whatsforlunch.Model.Polls.Poll;
+import com.boredatlunch.whatsforlunch.Model.Polls.PollItem;
+
 
 public class EmailNotificationServiceImpl {
 	private Properties emailProperties;
 	
-	public void sendPollCreatedNotification(String recipients) throws Exception{
+	public void sendPollCreatedNotification(String recipients, Poll poll) throws Exception{
+		String pollCandidates = null;
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", getEmailProperties().getProperty("mail.smtp.host"));
 		prop.put("mail.smtp.socketFactory.port", getEmailProperties().getProperty("mail.smtp.socketFactory.port"));
@@ -26,12 +34,19 @@ public class EmailNotificationServiceImpl {
 			protected PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication("whatsforlunch.noreply@gmail.com","cann0tStarve07"); }
 		});
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-			message.setSubject("Whats For Lunch? Test Message");
-			message.setText("Red pill or Blue pill?");
-			Transport.send(message);
+		
+		List<String> businessNames = new ArrayList<String>();
+		for(PollItem item : poll.getPollBusinessesList()) {
+			businessNames.add(item.getBusinessName());
+		}
+		
+		pollCandidates = StringUtils.join(businessNames, ",");
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+		message.setSubject("You friend asks Whats for Lunch?");
+		message.setText("Your friend has invited you to vote on a Whats for Lunch? poll! These are your poll candidates: " + pollCandidates + ". Go to this URL to vote for your choice: ");
+		Transport.send(message);
 	}
 
 	public Properties getEmailProperties() {

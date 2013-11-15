@@ -10,7 +10,6 @@ public class LocationSearchForm {
 	@NotBlank
 	private String zipCode;
 	
-	@NotBlank
 	private String radius;
 	
 	public String getSearchTerm() {

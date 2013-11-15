@@ -1,15 +1,18 @@
 package com.boredatlunch.whatsforlunch.OAuth;
 
+import org.apache.commons.lang.StringUtils;
 import org.scribe.builder.api.DefaultApi10a;
 
 public class DiOAuthConfig {
 	private String apiKey;
 	private String apiSecret;
 	private String callback;
+	private String scope;
 	//The object ? implements the Api interface provided by scribe. 
 	//Used generics implement this. See DiOAuthService for more info. 
 	//Else, should have been an implementation of the Api interface in Scribe
 	private DefaultApi10a api;
+	//this is the request token thats used to get an access token
 	private String token;
 	private String tokenSecret;
 	
@@ -19,12 +22,18 @@ public class DiOAuthConfig {
 	}
 
 	//Constructor for Spring to use to create an instance for dependency injection
-	public DiOAuthConfig(String apiKey, String apiSecret, DefaultApi10a api, String token, String tokenSecret) {
+	public DiOAuthConfig(String apiKey, String apiSecret, DefaultApi10a api, String token, String tokenSecret, String scope, String callback) {
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
 		this.api = api;
 		this.token = token;
 		this.tokenSecret = tokenSecret;
+		if(!scope.equals(StringUtils.EMPTY)) {
+			this.scope = scope;
+		}
+		if(!callback.equals(StringUtils.EMPTY)) {
+			this.callback = callback;
+		}
 	}
 	
 	public String getApiKey() {
@@ -68,5 +77,14 @@ public class DiOAuthConfig {
 
 	public void setTokenSecret(String tokenSecret) {
 		this.tokenSecret = tokenSecret;
-	}	
+	}
+
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
+	}
+	
 }

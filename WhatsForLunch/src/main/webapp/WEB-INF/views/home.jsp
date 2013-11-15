@@ -14,12 +14,13 @@
 </style>
 
 	<head>
-		<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
-		<link rel="stylesheet" href="<c:url value="/resources/css/app.css"/>">
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-		<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/app.css"/>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+		<script type="application/javascript" src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
+		<script type="application/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+		<script type="application/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
 	</head>
 	
 	<body>
@@ -27,7 +28,8 @@
 	      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Poll Dashboard</a></li>
 	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Contact</a></li>
-    	</ul>
+	      
+	    </ul>
 		
 		<div class="container">
 			<form:form  id="locationSearchForm" method="POST" commandName="locationSearchForm" modelAttribute="locationSearchForm" cssClass="form-inline">
@@ -52,15 +54,16 @@
 						<br>
 					</div>
 					
-					<div class="form-group">	
+					<%-- <div class="form-group">	
 						<label class="sr-only">Within</label>
 							<form:select path="radius" name="radius" id="radius" cssClass="dropdown">
 								<form:options items="${radiusList}"/>
 							</form:select>
 						<br>
-					</div>
+					</div> --%>
 						
 					<button id="findLunchLocations" type="submit" name="search" value="search" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span> Let's find lunch</button>
+					<!-- <button id="loginWithGoogle" type="submit" name="connectToGoogle" value="connectToGoogle" class="btn btn-primary">Login with Google</button> -->
 				</form>	
 			</form:form>
 		</div>	

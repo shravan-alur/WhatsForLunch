@@ -16,17 +16,42 @@
 </style>
 
 	<head>
-		<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
-		<link rel="stylesheet" href="<c:url value="/resources/css/app.css"/>">
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/app.css"/>">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-		<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/equalize.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/notify.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/jquery.sticky-kit.min.js"/>"></script>
-		<script type="text/javascript">
-			
+		<script type="application/javascript" src="<c:url value="/resources/js/jquery-2.0.3.min.js"/>"></script>
+		<script type="application/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+		<script type="application/javascript" src="<c:url value="/resources/js/bootbox.min.js"/>"></script>
+		<script type="application/javascript" src="<c:url value="/resources/js/equalize.min.js"/>"></script>
+		<script type="application/javascript" src="<c:url value="/resources/js/notify.min.js"/>"></script>
+		<script type="application/javascript">
+		
+		$.fn.uniformHeight = function () {
+			var maxHeight = 0,
+	            wrapper,
+	            wrapperHeight;
+
+	        return this.each(function () {
+
+	            // Applying a wrapper to the contents of the current element to get reliable height
+	            wrapper = $(this).wrapInner('<div class="wrapper" />').children('.wrapper');
+	            wrapperHeight = wrapper.outerHeight();
+
+	            maxHeight = Math.max(maxHeight, wrapperHeight);
+
+	            // Remove the wrapper
+	            wrapper.children().unwrap();
+
+	        }).height(maxHeight);
+	    }
+		
+		$.fn.equalizeHeights = function() {
+			  var maxHeight = this.map(function( i, e ) {
+			    return $( e ).height();
+			  }).get();
+			  return this.height( Math.max.apply( this, maxHeight ) );
+			};
+		
 		function equalHeight(group) {    
 		    tallest = 0;    
 		    group.each(function() {       
@@ -42,6 +67,9 @@
 			$.notify.defaults({ className: "success" });
 			
 			equalHeight($(".thumbnail"));
+			//$('#row').equalize();
+			//$('#thumbnail').equalizeHeights();
+			//$('#thumbnail').uniformHeight();
 			
 			$('#notifyFriends').on('click', function(event){
 				event.preventDefault();
@@ -101,7 +129,7 @@
 			<div class="row" id="row">
     				<c:forEach var="business" items="${yelpResponse.businesses}">
 							<div id="resultCard" class="col-sm-6 col-md-3">
-								<div class="thumbnail">
+								<div class="thumbnail" id="thumbnail">
 								  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
 								  <img src="${business.image_url}" width="125" height="125" onError="this.src='http://placehold.it/125x125&text=WFL';" />
 									  <div class="caption">
