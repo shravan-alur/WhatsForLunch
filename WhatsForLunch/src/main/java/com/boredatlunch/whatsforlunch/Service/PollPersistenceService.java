@@ -19,8 +19,14 @@ public class PollPersistenceService {
 	public static final String COLLECTION = "polls";
 	
 	public void savePoll(Poll poll) {
+		//Insert creates a new record each time - thereby new poll each time.
 		mongoTemplate.save(poll, COLLECTION);
 	}
+	
+	/*public void updatePoll(Poll poll) {
+		//Updates existing record
+		mongoTemplate.save(poll, COLLECTION);
+	}*/
 	
 	public List<Poll> getAllPolls() {
 		List<Poll> polls = mongoTemplate.findAll(Poll.class, COLLECTION);

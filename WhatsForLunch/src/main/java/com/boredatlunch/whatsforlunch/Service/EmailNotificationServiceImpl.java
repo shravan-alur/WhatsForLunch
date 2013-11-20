@@ -41,11 +41,12 @@ public class EmailNotificationServiceImpl {
 		}
 		
 		pollCandidates = StringUtils.join(businessNames, ",");
+		String url = "http://localhost:8082/WhatsForLunch/vote?poll=".concat(poll.getPollId());
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
 		message.setSubject("You friend asks Whats for Lunch?");
-		message.setText("Your friend has invited you to vote on a Whats for Lunch? poll! These are your poll candidates: " + pollCandidates + ". Go to this URL to vote for your choice: ");
+		message.setText("Your friend has invited you to vote on a poll created on Whats for Lunch? Go here to vote for your choice: " + url);
 		Transport.send(message);
 	}
 

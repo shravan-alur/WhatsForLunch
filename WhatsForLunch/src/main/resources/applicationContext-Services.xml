@@ -21,7 +21,8 @@
 		<property name="diOAuthConfig" ref="yelpOAuthConfig"/>
 	</bean>
 	
-	<bean name="poll" class="com.boredatlunch.whatsforlunch.Model.Polls.Poll"/>
+	<bean name="poll" class="com.boredatlunch.whatsforlunch.Model.Polls.Poll" scope="prototype">
+	</bean>
 	
 	<bean name="googleOAuthConfig" class="com.boredatlunch.whatsforlunch.OAuth.DiOAuthConfig">
 		<property name="apiKey" value="1001130530599-v8g5he31cm1vgf62dib14gc3p1n2ks57.apps.googleusercontent.com"/>
@@ -46,7 +47,11 @@
 	It is misleadingly named SearchYelpService  -->
 	<bean name="searchRestaurantService" class="com.boredatlunch.whatsforlunch.Service.SearchRestaurantServiceImpl">
 		<property name="yelpOAuthService" ref="yelpOAuthService"/>
-		<property name="devKey" value="10000005112"></property>
+		<property name="devKey" ref="devKey"></property>
+	</bean>
+	
+	<bean id="devKey" class="java.lang.String">
+		<constructor-arg value="10000005112"/>
 	</bean>
 	
 	<bean name="emailNotificationService" class="com.boredatlunch.whatsforlunch.Service.EmailNotificationServiceImpl">

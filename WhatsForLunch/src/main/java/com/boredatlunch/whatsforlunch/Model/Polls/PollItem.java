@@ -1,8 +1,5 @@
 package com.boredatlunch.whatsforlunch.Model.Polls;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
 public class PollItem {
 	private String businessName;
 	private String businessYelpId;

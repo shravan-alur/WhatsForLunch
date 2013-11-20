@@ -51,13 +51,10 @@ public class HomeController {
 	GoogleLoginServiceImpl googleLoginService;
 	
 	@Autowired
-	Poll poll;
-	
-	@Autowired
 	PollPersistenceService pollPersistenceService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	private List<Business> selectedPollList = new ArrayList<Business>();
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, final Model model, HttpSession session) {
@@ -77,6 +74,7 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.POST, params={"search"})
 	public String search(Locale locale, final Model model, @ModelAttribute("locationSearchForm")@Valid LocationSearchForm locationSearchForm, BindingResult bindingResult, HttpSession session) {
 		YelpResponse response = null;
+		List<Business> selectedPollList = new ArrayList<Business>();
 		try {
 			if(bindingResult.hasErrors()) {
 				return ".home";
@@ -90,6 +88,8 @@ public class HomeController {
 		} catch (Exception e) {
 			logger.error("Something went wrong when trying to retrieve search results :" + e.getMessage());
 		}
+		//model.addAttribute("selectedPollList", selectedPollList);
+		session.setAttribute("selectedPollList", selectedPollList);
 		model.addAttribute("yelpResponse", response);
 		session.setAttribute("yelpResponse", response);
 		return ".results";
@@ -98,6 +98,7 @@ public class HomeController {
 	@RequestMapping(value="/addToPoll", method=RequestMethod.POST)
 	public @ResponseBody String addToPoll(Locale locale, final Model model, @RequestParam("id") String id, HttpSession session) {
 		String returnVal = "FALSE";
+		List<Business> selectedPollList = (List<Business>) session.getAttribute("selectedPollList");
 		YelpResponse response = (YelpResponse)session.getAttribute("yelpResponse");
 		int size = selectedPollList.size();
 		for(Business business : response.getBusinesses()) {
@@ -111,23 +112,25 @@ public class HomeController {
 		if(newSize == size + 1) {
 			returnVal = "TRUE";
 		}
+		model.addAttribute("selectedPollList", selectedPollList);
 		return returnVal;
 	}
 	
 	@RequestMapping(value="/sendNotification", method=RequestMethod.POST) 
-	public @ResponseBody String sendPollToFriends(Locale locale, final Model model, @RequestParam("emails") String emails) {
+	public @ResponseBody String sendPollToFriends(Locale locale, final Model model, @RequestParam("emails") String emails, HttpSession session) {
 		String returnVal = "FALSE";
-		System.out.println("Entered email IDs are: " + emails);
-		//Store this poll in the DB and then send an email with a URL to this poll
-		getPoll().setCreatedTimestamp(Calendar.getInstance().getTime());
-		getPoll().setCreatorName("sk");
-		
-		for(Business business : getSelectedPollList()) {
+		Poll poll = new Poll();
+		poll.setPollId(UUID.randomUUID().toString());
+		poll.setCreatedTimestamp(Calendar.getInstance().getTime());
+		poll.setCreatorName("sk");
+		List<Business> selectedPollList = (List<Business>) session.getAttribute("selectedPollList");
+
+		for(Business business : selectedPollList) {
 			PollItem item = new PollItem();
 			item.setBusinessName(business.getName());
 			item.setBusinessYelpId(business.getId());
 			item.setVoteCount(0);
-			getPoll().getPollBusinessesList().add(item);
+			poll.getPollBusinessesList().add(item);
 		}
 		
 		pollPersistenceService.savePoll(poll);
@@ -165,10 +168,6 @@ public class HomeController {
 		this.searchRestaurantService = searchRestaurantService;
 	}
 
-	public List<Business> getSelectedPollList() {
-		return selectedPollList;
-	}
-
 	public GoogleLoginServiceImpl getGoogleLoginService() {
 		return googleLoginService;
 	}
@@ -176,13 +175,4 @@ public class HomeController {
 	public void setGoogleLoginService(GoogleLoginServiceImpl googleLoginService) {
 		this.googleLoginService = googleLoginService;
 	}
-
-	public Poll getPoll() {
-		return poll;
-	}
-
-	public void setPoll(Poll poll) {
-		this.poll = poll;
-	}
-
 }
