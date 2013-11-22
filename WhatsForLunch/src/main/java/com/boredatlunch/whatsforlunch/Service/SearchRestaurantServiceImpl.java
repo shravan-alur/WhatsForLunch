@@ -100,7 +100,7 @@ public class SearchRestaurantServiceImpl implements SearchRestaurantService {
 		Token accessToken = getYelpOAuthService().buildOAuthAccessToken();
 		
 		//Create the request
-		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
+		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/business");
 		request.addQuerystringParameter("id", businessId);
 		
 		//Sign the request with the OAuth Access token

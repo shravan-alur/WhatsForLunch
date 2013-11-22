@@ -3,8 +3,6 @@ package com.boredatlunch.whatsforlunch.Model.Polls;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,6 +12,7 @@ public class Poll {
 	private String creatorEmail;
 	private Date createdTimestamp;
 	private List<PollItem> pollBusinessesList = new ArrayList<PollItem>();
+	private List<String> votersList = new ArrayList<String>();
 	
 	@Override
 	public String toString() {
@@ -48,5 +47,11 @@ public class Poll {
 	}
 	public void setPollBusinessesList(List<PollItem> pollBusinessesList) {
 		this.pollBusinessesList = pollBusinessesList;
+	}
+	public List<String> getVotersList() {
+		return votersList;
+	}
+	public void setVotersList(List<String> votersList) {
+		this.votersList = votersList;
 	}
 }

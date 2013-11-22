@@ -95,7 +95,7 @@
 				});
 			});
 			
-			$('.pollButton').on('click', function() {
+			$('.addToPollButton').on('click', function() {
 			var business_id = $(this).attr('id');
 			var business_name = $(this).siblings('input').val();
 			$.ajax({
@@ -128,7 +128,7 @@
 		<div class="container" id="results">
 			<div class="row" id="row">
     				<c:forEach var="business" items="${yelpResponse.businesses}">
-							<div id="resultCard" class="col-sm-6 col-md-3">
+							<div id="resultCard" class="col-md-3">
 								<div class="thumbnail" id="thumbnail">
 								  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
 								  <img src="${business.image_url}" width="125" height="125" onError="this.src='http://placehold.it/125x125&text=WFL';" />
@@ -143,7 +143,7 @@
 								  <br>
 								  <p align="center">
 								  	<input id="businessName" value="${business.name}" hidden="true"/>
-								  	<button id="${business.id}" type="button" class="btn btn-primary pollButton"><span class="glyphicon glyphicon-ok-circle"></span> Add to poll</button>
+								  	<button id="${business.id}" type="button" class="btn btn-primary addToPollButton"><span class="glyphicon glyphicon-ok-circle"></span> Add to poll</button>
 								  </p>
 								</div>
 							 </div>

@@ -65,9 +65,8 @@ public class HomeController {
 		radiusList.add("20 Miles");
 		
 		model.addAttribute("locationSearchForm", locationSearchForm);
-		model.addAttribute("radiusList", radiusList);
+		//model.addAttribute("radiusList", radiusList);
 		session.setAttribute("locationSearchForm", locationSearchForm);
-		//session.setAttribute("radiusList", radiusList);
 		return ".home";
 	}
 	
@@ -88,7 +87,6 @@ public class HomeController {
 		} catch (Exception e) {
 			logger.error("Something went wrong when trying to retrieve search results :" + e.getMessage());
 		}
-		//model.addAttribute("selectedPollList", selectedPollList);
 		session.setAttribute("selectedPollList", selectedPollList);
 		model.addAttribute("yelpResponse", response);
 		session.setAttribute("yelpResponse", response);
@@ -100,6 +98,7 @@ public class HomeController {
 		String returnVal = "FALSE";
 		List<Business> selectedPollList = (List<Business>) session.getAttribute("selectedPollList");
 		YelpResponse response = (YelpResponse)session.getAttribute("yelpResponse");
+		
 		int size = selectedPollList.size();
 		for(Business business : response.getBusinesses()) {
 			if(business.getId().equals(id)) {
@@ -129,6 +128,10 @@ public class HomeController {
 			PollItem item = new PollItem();
 			item.setBusinessName(business.getName());
 			item.setBusinessYelpId(business.getId());
+			item.setBusinessImageUrl(business.getImage_url());
+			item.setBusinessRatingImageUrl(business.getRating_img_url_large());
+			item.setBusinessAddress(business.getLocation().getDisplay_address());
+			item.setBusinessYelpUrl(business.getUrl());
 			item.setVoteCount(0);
 			poll.getPollBusinessesList().add(item);
 		}

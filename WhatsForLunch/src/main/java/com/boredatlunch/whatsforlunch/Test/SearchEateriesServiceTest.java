@@ -28,7 +28,13 @@ public class SearchEateriesServiceTest {
 		assertNotNull(response);
 		assertTrue(response.length() >= 0);
 	}
-
+	
+	@Test
+	public void testSearchBusinessById() {
+		String response = searchRestaurantService.searchYelpByBusiness("tom-yum-thai-cary");
+		assertNotNull(response);
+	}
+	
 	public SearchRestaurantServiceImpl getSearchRestaurantService() {
 		return searchRestaurantService;
 	}
@@ -37,6 +43,4 @@ public class SearchEateriesServiceTest {
 			SearchRestaurantServiceImpl searchRestaurantService) {
 		this.searchRestaurantService = searchRestaurantService;
 	}
-	
-	
 }

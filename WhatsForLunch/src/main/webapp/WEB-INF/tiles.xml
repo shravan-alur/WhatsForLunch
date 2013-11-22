@@ -12,4 +12,8 @@
 		<put-attribute name="content" value="/WEB-INF/views/results.jsp" />
 	</definition>
 	
+	<definition name=".pollResults" template="/WEB-INF/views/pollResults.jsp">
+		<put-attribute name="content" value="/WEB-INF/views/pollResults.jsp" />
+	</definition>
+	
 </tiles-definitions>       

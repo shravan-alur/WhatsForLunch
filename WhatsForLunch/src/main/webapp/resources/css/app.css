@@ -2,3 +2,7 @@
 	width : 100%;
 	z-index : 1;
 }
+
+#pollResultCard {
+	width: 100%;
+}

@@ -3,6 +3,7 @@ package com.boredatlunch.whatsforlunch.Test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,7 @@ public class PollPersistenceServiceTest {
 	@Test
 	public void testSavePoll() {
 		//Poll poll = new Poll();
+		poll.setPollId(UUID.randomUUID().toString());
 		poll.setCreatedTimestamp(new Date());
 		poll.setCreatorEmail("test@test.com");
 		poll.setCreatorName("TEST");
@@ -55,7 +57,15 @@ public class PollPersistenceServiceTest {
 		
 		getPollService().savePoll(poll);
 	}
-
+	
+	@Test
+	public void testUpdatePoll() {
+		//Poll poll = new Poll();
+		poll = getPollService().findPollById("51789a8e-fce0-47b7-ac8a-d54c51bbad77");
+		poll.setCreatorName("TEST_UPDATER_BOT");
+		getPollService().savePoll(poll);
+	}
+	
 	public PollPersistenceService getPollService() {
 		return pollService;
 	}
