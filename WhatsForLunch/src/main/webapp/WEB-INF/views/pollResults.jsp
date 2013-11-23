@@ -67,6 +67,11 @@
 			                console.log("Could not add to poll");
 			            });
 					}
+					else if(response == "VOTED") {
+						bootbox.alert("You have exercised your democratic right already on this poll, lets wait for the results now :)", function() {
+			                console.log("Could not add to poll");
+			            });
+					}
 					else {
 						$.notify("Voted for " + business_name,  {globalPosition : "bottom left"});
 					}	

@@ -67,18 +67,30 @@ public class PollController {
 		Poll requestedPoll = (Poll)session.getAttribute("requestedPoll");
 		for(PollItem item : requestedPoll.getPollBusinessesList()) {
 			if(item.getBusinessYelpId().equals(id)) {
-				System.out.println("Increasing the vote count for " + id + " on poll " + requestedPoll.getPollId() + " voted by " + voterId);
-				//increase vote count for this business on this poll, set the name of the person who voted for this choice and persist back to the DB.
-				int currentVotecount = item.getVoteCount();
-				//increse vote count
-				item.setVoteCount(currentVotecount+1);
-				//set the name of the person who voted for this
-				List<String> itemVotersList = item.getItemVotersList();
-				itemVotersList.add(voterId);
-				item.setItemVotersList(itemVotersList);
-				//Persist the updated poll
-				pollPersistenceService.savePoll(requestedPoll);
-				returnVal = "TRUE";
+					//only allow voting if id has not voted
+					if(!requestedPoll.getVotersList().contains(voterId)) {
+					System.out.println("Increasing the vote count for " + id + " on poll " + requestedPoll.getPollId() + " voted by " + voterId);
+					//increase vote count for this business on this poll, set the name of the person who voted for this choice and persist back to the DB.
+					int currentVotecount = item.getVoteCount();
+					//increse vote count
+					item.setVoteCount(currentVotecount+1);
+					//set the name of the person who voted for this
+					List<String> itemVotersList = item.getItemVotersList();
+					itemVotersList.add(voterId);
+					item.setItemVotersList(itemVotersList);
+					
+					List<String> pollVotersList = requestedPoll.getVotersList();
+					pollVotersList.add(voterId);
+					requestedPoll.setVotersList(pollVotersList);
+					
+					//Persist the updated poll
+					pollPersistenceService.savePoll(requestedPoll);
+					returnVal = "TRUE";
+				}
+				else {
+					//this id has voted already, do not allow voting again
+					returnVal = "VOTED";
+				}
 			}
 		}
 		return returnVal;
