@@ -3,10 +3,13 @@ package com.boredatlunch.whatsforlunch.Model.Polls;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Poll {
+	@Id
 	private String pollId;
 	private String creatorName;
 	private String creatorEmail;
