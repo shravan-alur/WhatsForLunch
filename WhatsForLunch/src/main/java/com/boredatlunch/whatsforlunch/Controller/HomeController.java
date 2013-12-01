@@ -1,6 +1,7 @@
 package com.boredatlunch.whatsforlunch.Controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -59,14 +60,8 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, final Model model, HttpSession session) {
 		LocationSearchForm locationSearchForm = new LocationSearchForm();
-		List<String> radiusList = new ArrayList<String>();
-		radiusList.add("5 Miles");
-		radiusList.add("10 Miles");
-		radiusList.add("20 Miles");
-		
 		model.addAttribute("locationSearchForm", locationSearchForm);
-		//model.addAttribute("radiusList", radiusList);
-		session.setAttribute("locationSearchForm", locationSearchForm);
+		//session.setAttribute("locationSearchForm", locationSearchForm);
 		return ".home";
 	}
 	
@@ -123,7 +118,10 @@ public class HomeController {
 		poll.setCreatedTimestamp(Calendar.getInstance().getTime());
 		poll.setCreatorName("sk");
 		List<Business> selectedPollList = (List<Business>) session.getAttribute("selectedPollList");
-
+		String[] emailAddressArray = StringUtils.split(emails, ",");
+		int numberOfVoters = emailAddressArray.length;
+		poll.setNumberOfVoters(numberOfVoters);
+		
 		for(Business business : selectedPollList) {
 			PollItem item = new PollItem();
 			item.setBusinessName(business.getName());
@@ -139,15 +137,12 @@ public class HomeController {
 		pollPersistenceService.savePoll(poll);
 		//TODO: Validate email format here
 		try {
-				String[] emailAddressArray = StringUtils.split(emails, ",");
-				for(String email : emailAddressArray) {
-					emailNotificationService.sendPollCreatedNotification(StringUtils.trim(email), poll);
+				emailNotificationService.sendPollCreatedNotification(Arrays.asList(emailAddressArray), poll);
+				returnVal = "TRUE";
 			}
-			returnVal = "TRUE";
-		}
-		catch(Exception e) {
-			logger.error("Email not sent due to some issues" + e.getMessage());
-		}
+			catch(Exception e) {
+				logger.error("Email not sent due to some issues" + e.getMessage());
+			}
 		return returnVal;
 	}
 	

@@ -15,7 +15,14 @@ public class Poll {
 	private String creatorEmail;
 	private Date createdTimestamp;
 	private List<PollItem> pollBusinessesList = new ArrayList<PollItem>();
-	private List<String> votersList = new ArrayList<String>();
+	private List<String> expiredVotersList = new ArrayList<String>();
+	public List<String> getExpiredVotersList() {
+		return expiredVotersList;
+	}
+	public void setExpiredVotersList(List<String> expiredVotersList) {
+		this.expiredVotersList = expiredVotersList;
+	}
+	private int numberOfVoters;
 	
 	@Override
 	public String toString() {
@@ -26,6 +33,12 @@ public class Poll {
 	}
 	public void setPollId(String pollId) {
 		this.pollId = pollId;
+	}
+	public int getNumberOfVoters() {
+		return numberOfVoters;
+	}
+	public void setNumberOfVoters(int numberOfVoters) {
+		this.numberOfVoters = numberOfVoters;
 	}
 	public String getCreatorName() {
 		return creatorName;
@@ -51,10 +64,6 @@ public class Poll {
 	public void setPollBusinessesList(List<PollItem> pollBusinessesList) {
 		this.pollBusinessesList = pollBusinessesList;
 	}
-	public List<String> getVotersList() {
-		return votersList;
-	}
-	public void setVotersList(List<String> votersList) {
-		this.votersList = votersList;
-	}
+	
+	
 }

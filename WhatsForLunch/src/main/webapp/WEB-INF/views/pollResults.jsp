@@ -91,8 +91,7 @@
 		</div>
 		
 		<div class="container" id="results">
-			<c:set var="i" value="1"></c:set>
-		 	<c:forEach var="business" items="${requestedPoll.pollBusinessesList}">
+			<c:forEach var="business" items="${requestedPoll.pollBusinessesList}">
  					<div class="thumbnail" id="pollResultCard">
  						<div class="row" id="row">
  							<div id="businessCard" class="col-md-4">
@@ -109,9 +108,9 @@
 							 <div class="pagination-centered">
 								 <div id="poll" class="col-md-6 col-md-offset-1">
 								   <div class="progress progress-striped active">
-						 				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+						 				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${business.voteCount / requestedPoll.numberOfVoters * 100}" aria-valuemin="0" aria-valuemax="100" style="width: ${business.voteCount / requestedPoll.numberOfVoters * 100}%">
 											 <span class="sr-only">40% Complete (success)</span>
-										 </div>
+										 </div> 
 									</div>
 									<p align="center">
 									  	<input id="businessName" value="${business.businessName}" hidden="true"/>

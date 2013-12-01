@@ -26,8 +26,7 @@ import com.boredatlunch.whatsforlunch.Model.Polls.PollItem;
 public class EmailNotificationServiceImpl {
 	private Properties emailProperties;
 	
-	public void sendPollCreatedNotification(String recipients, Poll poll) throws Exception{
-		String pollCandidates = null;
+	public void sendPollCreatedNotification(List<String> recipients, Poll poll) throws Exception{
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", getEmailProperties().getProperty("mail.smtp.host"));
 		prop.put("mail.smtp.socketFactory.port", getEmailProperties().getProperty("mail.smtp.socketFactory.port"));
@@ -45,20 +44,16 @@ public class EmailNotificationServiceImpl {
 			businessNames.add(item.getBusinessName());
 		}
 		
-		pollCandidates = StringUtils.join(businessNames, ",");
-		String[] emailRecipientArray = StringUtils.split(recipients, ",");
-		List<String> emailRecipientList = Arrays.asList(emailRecipientArray);
-		
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
-		for(String recipient : emailRecipientList) {
+		for(String recipient : recipients) {
 			//String url = "http://localhost:8082/WhatsForLunch/poll?poll=".concat(poll.getPollId());
 			String url = "http://localhost:8082/WhatsForLunch/poll";
 			HttpGet getUrl = new HttpGet(url);
 			URI uri = new URIBuilder(getUrl.getURI()).addParameter("poll", poll.getPollId()).addParameter("voterId", StringUtils.trim(recipient)).build();
 			message.setSubject("Your friend asks What's for Lunch?");
 			message.setText("Your friend has invited you to vote on a poll created on What's for Lunch? Go here to vote for your choice: " + uri);
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(StringUtils.trim(recipient)));
 			Transport.send(message);
 		}
 	}
@@ -82,7 +77,7 @@ public class EmailNotificationServiceImpl {
 		message.setFrom(new InternetAddress("whatsforlunch.noreply@gmail.com"));
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
 		message.setSubject("What's for lunch?");
-		message.setText("Your friend recently participated in a What's for Lunch and wants to spread the word about us! Please check us out at " + url);
+		message.setText("Your friend recently participated in a What's for Lunch poll and wants to spread the word about us! Please check us out at " + url);
 		Transport.send(message);
 	}
 
