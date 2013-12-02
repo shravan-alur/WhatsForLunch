@@ -63,10 +63,14 @@
 		    group.each(function() { $(this).height(tallest); });
 		} 
 		
+		$(window).bind("load", function() {
+			equalHeight($(".thumbnail"));
+		});
+		
 		$(document).ready(function() {
 			$.notify.defaults({ className: "success" });
 			
-			equalHeight($(".thumbnail"));
+			//equalHeight($(".thumbnail"));
 			//$('#row').equalize();
 			//$('#thumbnail').equalizeHeights();
 			//$('#thumbnail').uniformHeight();
@@ -127,8 +131,9 @@
 			
 		<div class="container" id="results">
 			<div class="row" id="row">
+			<c:set var="i" value="1"/>
     				<c:forEach var="business" items="${yelpResponse.businesses}">
-							<div id="resultCard" class="col-md-3">
+							<div id="resultCard" class="col-md-4">
 								<div class="thumbnail" id="thumbnail">
 								  <h3 align="center"><a href="${business.url}">${business.name}</a></h3>
 								  <img src="${business.image_url}" width="125" height="125" onError="this.src='http://placehold.it/125x125&text=WFL';" />
@@ -140,6 +145,7 @@
 										</p>
 									 </div>
 								  <img align="center" src="${business.rating_img_url_large}"/>
+								  <%-- <c:out value="${i}"/> --%>
 								  <br>
 								  <p align="center">
 								  	<input id="businessName" value="${business.name}" hidden="true"/>
@@ -147,6 +153,7 @@
 								  </p>
 								</div>
 							 </div>
+							 <c:set var="i" value="${i + 1}"/>
 					</c:forEach>
 			</div>	
 		</div>
