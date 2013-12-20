@@ -10,8 +10,8 @@
 
 <style>
 	body {
-		background : url("resources/images/colors.jpg");
-		background-size: cover;	 
+		/* background : url("resources/images/colors.jpg");
+		background-size: cover;	  */
 	}
 </style>
 

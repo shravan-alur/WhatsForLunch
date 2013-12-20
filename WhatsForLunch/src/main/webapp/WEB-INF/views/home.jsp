@@ -7,10 +7,10 @@
 <html lang="us">
 
 <style>
-	body {
+	/* body {
 		background : url("resources/images/colors.jpg");
 		background-size: cover;	 
-	}	
+	} */	
 </style>
 
 	<head>
@@ -26,9 +26,10 @@
 	<body>
 		<ul class="nav nav-pills pull-right">
 	      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-	      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> View Poll Results</a></li>
-	      <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Contact</a></li> -->
+	      <li><a href="http://localhost:8082/WhatsForLunch/viewResults"><span class="glyphicon glyphicon-stats"></span> View Poll Results</a></li>
 	      
+	      
+	      <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Contact</a></li> -->
 	    </ul>
 		
 		<div class="container">

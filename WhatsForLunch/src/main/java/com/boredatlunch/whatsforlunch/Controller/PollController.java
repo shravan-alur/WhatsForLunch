@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.boredatlunch.whatsforlunch.Model.LocationSearchForm;
 import com.boredatlunch.whatsforlunch.Model.Polls.Poll;
 import com.boredatlunch.whatsforlunch.Model.Polls.PollItem;
 import com.boredatlunch.whatsforlunch.Service.EmailNotificationServiceImpl;
@@ -40,6 +41,15 @@ public class PollController {
 		session.setAttribute("requestedPoll", requestedPoll);
 		session.setAttribute("voterId", voterId);
 		return ".pollResults";
+	}
+	
+	@RequestMapping(value="/viewResults", method = RequestMethod.GET)
+	public String viewPollResults(final Model model, HttpSession session) {
+		System.out.println("***************Inside this to view poll results*****************");
+		model.addAttribute("locationSearchForm", new LocationSearchForm());
+		session.setAttribute("locationSearchForm", new LocationSearchForm());
+
+		return ".viewResults";
 	}
 	
 	@RequestMapping(value="/spreadTheWord", method=RequestMethod.POST) 
@@ -93,5 +103,10 @@ public class PollController {
 				returnVal = "VOTED";
 			}
 		return returnVal;
+	}
+	
+	@RequestMapping(value="/displayPollResults", method=RequestMethod.GET)
+	public void displayPollResultsStatus() {
+		System.out.println("im here !!!!");
 	}
 }

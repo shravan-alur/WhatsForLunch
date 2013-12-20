@@ -52,7 +52,7 @@ public class EmailNotificationServiceImpl {
 			HttpGet getUrl = new HttpGet(url);
 			URI uri = new URIBuilder(getUrl.getURI()).addParameter("poll", poll.getPollId()).addParameter("voterId", StringUtils.trim(recipient)).build();
 			message.setSubject("Your friend asks What's for Lunch?");
-			message.setText("Your friend has invited you to vote on a poll created on What's for Lunch? Go here to vote for your choice: " + uri);
+			message.setText("Your friend has invited you to vote on a poll created on What's for Lunch? Go here to vote for your choice: " + uri + "\n\n  If you would like to view the results of this poll at anytime, click on 'View Poll Results' and enter this poll identifier " + poll.getPollId());
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(StringUtils.trim(recipient)));
 			Transport.send(message);
 		}
