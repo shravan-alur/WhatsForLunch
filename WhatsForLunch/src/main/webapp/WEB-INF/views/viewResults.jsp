@@ -33,7 +33,7 @@
 			<form:form  id="resultSearchForm" method="POST" commandName="resultSearchForm" modelAttribute="resultSearchForm" cssClass="form-inline">
 				
 				<div class="jumbotron" >
-					<h2 align="center">Enter the poll ID that you received on your email to track the progress of the poll</h2>
+					<h1 align="center">Which poll are we tracking today?</h1>
 				</div>
 				
 				<form:errors path="*" cssClass="alert alert-info" element="div" />
@@ -41,12 +41,12 @@
 				<div align="center">
 					<form class="form-inline" role="form">	
 						<div class="form-group">
-							<label class="sr-only">Enter the poll ID that you received on your email to track the progress of the poll</label>
-							<form:input path="pollId" name="pollId" id="pollId" type="text" placeholder="ID of the poll you want to track" cssClass="form-control"/>
+							<label class="sr-only">ID of the poll you want to track</label>
+							<form:input path="pollId" name="pollId" id="pollId" type="text" placeholder="Enter the poll ID you received on email" cssClass="form-control" size="40"/>
 							<br>
 						</div>
 						
-						<button id="viewPollResults" type="submit" name="search" value="search" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span> Find Poll</button>
+						<button id="viewPollResults" type="submit" name="findResults" value="findResults" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span> Find Poll</button>
 						
 					</form>
 				</div>	

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boredatlunch.whatsforlunch.Model.LocationSearchForm;
+import com.boredatlunch.whatsforlunch.Model.ResultSearchForm;
 import com.boredatlunch.whatsforlunch.Model.Polls.Poll;
 import com.boredatlunch.whatsforlunch.Model.Polls.PollItem;
+import com.boredatlunch.whatsforlunch.Model.Yelp.YelpResponse;
 import com.boredatlunch.whatsforlunch.Service.EmailNotificationServiceImpl;
 import com.boredatlunch.whatsforlunch.Service.PollPersistenceService;
 
@@ -41,15 +45,6 @@ public class PollController {
 		session.setAttribute("requestedPoll", requestedPoll);
 		session.setAttribute("voterId", voterId);
 		return ".pollResults";
-	}
-	
-	@RequestMapping(value="/viewResults", method = RequestMethod.GET)
-	public String viewPollResults(final Model model, HttpSession session) {
-		System.out.println("***************Inside this to view poll results*****************");
-		model.addAttribute("locationSearchForm", new LocationSearchForm());
-		session.setAttribute("locationSearchForm", new LocationSearchForm());
-
-		return ".viewResults";
 	}
 	
 	@RequestMapping(value="/spreadTheWord", method=RequestMethod.POST) 
@@ -81,7 +76,7 @@ public class PollController {
 						System.out.println("Increasing the vote count for " + id + " on poll " + requestedPoll.getPollId() + " voted by " + voterId);
 						//increase vote count for this business on this poll, set the name of the person who voted for this choice and persist back to the DB.
 						int currentVotecount = item.getVoteCount();
-						//increse vote count
+						//increase vote count
 						item.setVoteCount(currentVotecount+1);
 						//set the name of the person who voted for this
 						List<String> itemVotersList = item.getItemVotersList();
@@ -108,5 +103,18 @@ public class PollController {
 	@RequestMapping(value="/displayPollResults", method=RequestMethod.GET)
 	public void displayPollResultsStatus() {
 		System.out.println("im here !!!!");
+	}
+	
+	@RequestMapping(value="/viewResults", method = RequestMethod.GET)
+	public String viewPollResults(final Model model, HttpSession session) {
+		ResultSearchForm resultSearchForm = new ResultSearchForm();
+		model.addAttribute("resultSearchForm", resultSearchForm);
+		return ".viewResults";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public String findResults(Locale locale, final Model model, @ModelAttribute("resultSearchForm")ResultSearchForm resultSearchForm, BindingResult bindingResult) {
+		System.out.println("The poll id entered for search is: " + resultSearchForm.getPollId());
+		return ".results";
 	}
 }

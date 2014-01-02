@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boredatlunch.whatsforlunch.Model.LocationSearchForm;
+import com.boredatlunch.whatsforlunch.Model.ResultSearchForm;
 import com.boredatlunch.whatsforlunch.Model.Polls.Poll;
 import com.boredatlunch.whatsforlunch.Model.Polls.PollItem;
 import com.boredatlunch.whatsforlunch.Model.Yelp.Business;
@@ -60,8 +61,10 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Locale locale, final Model model, HttpSession session) {
 		LocationSearchForm locationSearchForm = new LocationSearchForm();
+		ResultSearchForm resultSearchForm = new ResultSearchForm();
 		model.addAttribute("locationSearchForm", locationSearchForm);
-		//session.setAttribute("locationSearchForm", locationSearchForm);
+		//model.addAttribute("resultSearchForm", resultSearchForm);
+		//session.setAttribute("resultSearchForm", resultSearchForm);
 		return ".home";
 	}
 	
